@@ -6,7 +6,6 @@
 - Security
 - Mongo
 - Redis
-- Batch+Quartz
 
 
 ## RDB 기준으로 작성
@@ -95,7 +94,7 @@
 > ```docker
 > docker create -it \
 > --name redis \
-> -p 6397:6397 \
+> -p 6379:6379 \
 > -v /home/redis/data:/data \
 > -v /home/redis/redis.conf:/usr/local/etc/redis/redis.conf \
 > --log-driver json-file \
