@@ -15,6 +15,7 @@
 >     User {
 >         VARCHAR(512)  uuid
 >         VARCHAR(16)   phone
+>         VARCHAR(512) password
 >         VARCHAR(32)   nickname
 >         VARCHAR(64)   email
 >         
@@ -22,7 +23,8 @@
 >         
 >         VARCHAR(512)  pushToken
 >         BOOLEAN       sendable
->         
+>         INT           tired
+> 
 >         DATETIME      joinDate
 >         DATETIME      lastModifiedDate
 >         DATETIME      lastSignInDate
@@ -32,31 +34,25 @@
 >     
 >     MyBuddy {
 >         VARCHAR(512)   uuid
->         BOOLEAN        primary
+>         BOOLEAN        isPrimary
 >         VARCHAR(512)   buddy     
-> %%      Buddy          buddy
+> %%      ENUM          buddy
 >         VARCHAR(32)    name
 >         DATETIME       whenWeMet
 >         INT           exp
->         INT           tired
 > 
 >         ENUM           action
 >         DATETIME       whenStart
 >         DATETIME       whenEnd
-> %%      Action[]       actions  
+> %%      ActionHistory[]       actionHistories  
 >     }
 >     
->     Buddy {
->         VARCHAR(512)   uuid
->         VARCHAR(32)    name
->         VARCHAR(128)   description
->     }
 > 
 > 
 >     Action {
 >         VARCHAR(512)   uuid
->         VARCHAR(512)   myBuddy
 >         ENUM           action
+>         ENUM           actionStatus
 >         DATETIME       start
 >         DATETIME       end
 >     }
