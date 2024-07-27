@@ -1,34 +1,43 @@
 package com.fitbuddy.service.repository.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.uuid.Generators;
 import com.fitbuddy.service.config.security.jwt.JwtEncryptable;
-import com.mongodb.lang.NonNull;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.mongodb.core.annotation.Collation;
-import org.springframework.data.mongodb.core.mapping.*;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-
+@ToString
 @Collation(value = "UTF-8")
 @Document(collection = "User")
 @Getter
+@Setter
 @JsonIgnoreProperties(value = {
+        "password",
         "authorities",
         "username",
         "accountNonExpired",
         "accountNonLocked",
         "credentialsNonExpired",
         "enabled",
-})
-public class User implements JwtEncryptable {
+        "refreshToken"
+}, allowGetters = false, allowSetters = true)
+
+public class User implements Persistable {
     @Id
     @Field(name = "uuid", targetType = FieldType.OBJECT_ID)
     private String uuid;
@@ -60,33 +69,18 @@ public class User implements JwtEncryptable {
     @DBRef(lazy = true)
     private List<MyBuddy> buddies;
 
+    @Transient
+    private Boolean isNew = Boolean.FALSE;
+
+
+
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
-    @Override
-    public String getUsername() {
-        return this.phone;
-    }
-    @Override
-    public boolean isAccountNonExpired() {
-        return Boolean.TRUE;
-    }
-    @Override
-    public boolean isAccountNonLocked() {
-        return Boolean.TRUE;
-    }
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return Boolean.TRUE;
-    }
-    @Override
-    public boolean isEnabled() {
-        return Boolean.TRUE;
+    public Object getId() {
+        return this.uuid;
     }
 
     @Override
-    public String getId() {
-        return this.phone;
+    public boolean isNew() {
+        return this.isNew;
     }
 }

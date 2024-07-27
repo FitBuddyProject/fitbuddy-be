@@ -1,29 +1,27 @@
 package com.fitbuddy.service.config.mongo;
 
 import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
-import com.mongodb.MongoCredential;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.yaml.snakeyaml.util.UriEncoder;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+@Profile(value = {"local"})
 @Configuration(value = "mongo-db-configuration")
 @EnableTransactionManagement
 @RequiredArgsConstructor
-@Slf4j
 public class MongoDBConfiguration extends AbstractMongoClientConfiguration {
     private final Environment environment;
 

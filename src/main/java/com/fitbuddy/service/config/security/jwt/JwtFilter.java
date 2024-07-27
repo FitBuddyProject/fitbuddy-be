@@ -1,6 +1,6 @@
 package com.fitbuddy.service.config.security.jwt;
 
-import com.fitbuddy.service.repository.entity.User;
+import com.fitbuddy.service.repository.dto.UserDto;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -47,7 +47,7 @@ public class JwtFilter extends GenericFilterBean {
         )  throw new JwtException(null, null);
 
         String jwt =  bearerToken.replace(BEARER_PREFIX, "");
-        Authentication authentication = tokenProvider.decrypt(jwt, User.class);
+        Authentication authentication = tokenProvider.decrypt(jwt, UserDto.class);
         return authentication;
     }
 
