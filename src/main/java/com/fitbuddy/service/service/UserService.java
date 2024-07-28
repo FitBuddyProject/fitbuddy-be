@@ -1,7 +1,7 @@
 package com.fitbuddy.service.service;
 
 import com.fitbuddy.service.config.security.jwt.TokenProvider;
-import com.fitbuddy.service.enumerations.Header;
+import com.fitbuddy.service.etc.enumerates.Header;
 import com.fitbuddy.service.repository.dto.UserDto;
 import com.fitbuddy.service.repository.entity.User;
 import com.fitbuddy.service.repository.user.UserRepository;
@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

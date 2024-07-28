@@ -2,8 +2,8 @@ package com.fitbuddy.service.repository.dto;
 
 import com.fasterxml.uuid.Generators;
 import com.fitbuddy.service.config.security.jwt.JwtEncryptable;
-import com.fitbuddy.service.config.security.jwt.TokenProvider;
 import com.fitbuddy.service.repository.entity.MyBuddy;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,17 +11,21 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.io.StringReader;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+import static com.fitbuddy.service.etc.validations.User.*;
 @Data
 @EqualsAndHashCode(of = {"uuid", "phone"})
-public class UserDto implements JwtEncryptable{
+public class UserDto implements JwtEncryptable {
+    @NotEmpty(message = "로그아웃 시 UUID는 필수입니다.", groups = {SignOut.class})
     private String uuid;
+    @NotEmpty(message = "전화번호는 필수입니다.", groups = {SignUp.class, SignIn.class})
     private String phone;
+    @NotEmpty(message = "비밀번호는 필수입니다.", groups = {SignUp.class, SignIn.class})
     private String password;
+    @NotEmpty(message = "닉네임은 필수입니다.", groups = {SignUp.class})
     private String nickname;
     private String email;
     private String refreshToken;

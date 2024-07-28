@@ -1,4 +1,4 @@
-package com.fitbuddy.service.enumerations;
+package com.fitbuddy.service.etc.enumerates;
 
 import lombok.Getter;
 

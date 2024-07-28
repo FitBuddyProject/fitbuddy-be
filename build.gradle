@@ -28,38 +28,42 @@ ext {
     set('springCloudVersion', "2023.0.2")
 }
 
+///// SPRING-BOOT
 dependencies {
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-
-//ModelMapper
-    implementation 'org.modelmapper:modelmapper:3.1.1'
-
-//DateTime jackson.datatype.binder
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-
-    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
-    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
-    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
-
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
-
     implementation 'org.springframework.boot:spring-boot-starter-security'
-
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.cloud:spring-cloud-starter'
-    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
-
-
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+}
+
+///// OTHERS
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
     implementation 'com.fasterxml.uuid:java-uuid-generator:5.1.0'
+    implementation 'org.modelmapper:modelmapper:3.1.1'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+}
 
+///// JWT
+dependencies {
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+}
+///// Ops
+dependencies {
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+}
 
+///// TEST
+dependencies {
     testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring30x:4.11.0'
     testImplementation group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
     testImplementation 'org.springframework.security:spring-security-test'
@@ -67,9 +71,6 @@ dependencies {
     testImplementation 'org.springframework.batch:spring-batch-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testImplementation 'org.mockito:mockito-core:5.11.0'
-
-
-
 }
 
 dependencyManagement {
