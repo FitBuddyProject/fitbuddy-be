@@ -1,6 +1,5 @@
 package com.fitbuddy.service.service;
 
-import com.fasterxml.uuid.Generators;
 import com.fitbuddy.service.config.security.jwt.TokenProvider;
 import com.fitbuddy.service.repository.dto.UserDto;
 import com.fitbuddy.service.repository.entity.User;
@@ -24,6 +23,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -79,7 +79,7 @@ public class UserServiceTest {
     @DisplayName("회원 가입")
     class SignUpTest {
         @Test
-        @DisplayName("회원 가입 성공")
+        @DisplayName("- 성공")
         public void success () {
             String phone = "01012341234";
             String password = "password";
@@ -125,7 +125,7 @@ public class UserServiceTest {
         }
 
         @Test
-        @DisplayName("회원 가입 실패 - 이미 가입된 휴대폰 번호")
+        @DisplayName("- 실패 : 이미 가입된 휴대폰 번호")
         public void duplicated () {
             String phone = "01012341234";
             String password = "password";
@@ -144,7 +144,71 @@ public class UserServiceTest {
 
             assertThatThrownBy(() -> service.signUp(response, userDto)).isInstanceOf(IllegalStateException.class);
         }
-
     }
 
+    @Nested
+    @DisplayName("회원 로그인")
+    class SignInTest {
+
+
+        @Test
+        @DisplayName("- 실패 : 아이디 X")
+        void failureWrongPhone() {
+            String phone = "01000000000";
+            UserDto userDto = new UserDto();
+            userDto.setPhone(phone);
+
+            doReturn(Optional.empty()).when(repository).findUserByPhone(phone);
+
+
+            assertThatThrownBy(() -> service.signIn(new MockHttpServletResponse(), userDto))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("아이디 혹은 비밀번호를 확인해주세요.");
+        }
+
+        @Test
+        @DisplayName("- 실패 : 아이디 O 비밀번호 X")
+        void failureWrongPassword() {
+            String phone = "01012341234";
+            String password = "password";
+            UserDto userDto = new UserDto();
+            userDto.setPhone(phone);
+            userDto.setPassword(password);
+
+            doReturn(Optional.of(mapper.map(userDto, User.class))).when(repository).findUserByPhone(phone);
+
+            assertThatThrownBy(() -> service.signIn(new MockHttpServletResponse(), userDto))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessage("아이디 혹은 비밀번호를 확인해주세요.");
+        }
+
+
+        @Test
+        @DisplayName("- 성공")
+        void success() {
+            String uuid = "UUID";
+            String phone = "01012341234";
+            String password = "password";
+            String passwordEnc = bcrypt.encode(password);
+            String access = "ACCESS";
+            String refresh = "REFRESH";
+            UserDto userDto = new UserDto();
+            userDto.setPhone(phone);
+            userDto.setPassword(password);
+
+            User user = mapper.map(userDto, User.class);
+            user.setUuid(uuid);
+            user.setPassword(passwordEnc);
+
+
+            doReturn(Optional.of(user)).when(repository).findUserByPhone(anyString());
+            doReturn(access).when(tokenProvider).encrypt(userDto, true);
+            doReturn(refresh).when(tokenProvider).encrypt(userDto, false);
+            doReturn(Boolean.TRUE).when(template).updatePushToken(anyString(), anyString(), anyString());
+
+            assertThat(service.signIn(new MockHttpServletResponse(), userDto))
+                    .extracting("phone", "password")
+                    .isEqualTo(tuple(phone, passwordEnc).toList());
+        }
+    }
 }

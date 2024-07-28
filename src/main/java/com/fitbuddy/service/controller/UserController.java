@@ -25,12 +25,12 @@ public class UserController {
     }
 
     @PatchMapping(value = "/sign/in")
-    public ResponseEntity signIn(@RequestBody User user) {
-        return ResponseEntity.ok(service.signIn(user));
+    public ResponseEntity signIn(HttpServletResponse response,  @RequestBody UserDto user) {
+        return ResponseEntity.ok(service.signIn(response, user));
     }
     @PatchMapping(value = "/sign/out")
-    public ResponseEntity signOut(@RequestBody User user) {
-        return ResponseEntity.ok(service.signOut(user));
+    public ResponseEntity signOut(HttpServletResponse response,  @RequestBody UserDto user) {
+        return ResponseEntity.ok(service.signOut(response, user));
     }
 
 }

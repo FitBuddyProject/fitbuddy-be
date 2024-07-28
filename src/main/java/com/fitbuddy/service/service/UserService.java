@@ -1,6 +1,7 @@
 package com.fitbuddy.service.service;
 
 import com.fitbuddy.service.config.security.jwt.TokenProvider;
+import com.fitbuddy.service.enumerations.Header;
 import com.fitbuddy.service.repository.dto.UserDto;
 import com.fitbuddy.service.repository.entity.User;
 import com.fitbuddy.service.repository.user.UserRepository;
@@ -18,6 +19,7 @@ import org.springframework.util.StringUtils;
 
 import java.security.SecureRandom;
 import java.time.Duration;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 @Service
@@ -29,7 +31,6 @@ public class UserService {
     private final UserTemplate template;
     private final ModelMapper mapper;
     private final RedisTemplate<String, String> redisTemplate;
-    private final TokenProvider provider;
     private final TokenProvider tokenProvider;
 
 
@@ -59,19 +60,33 @@ public class UserService {
         String access = tokenProvider.encrypt(dto, Boolean.TRUE);
         User user = mapper.map(dto.beforeInsert(bcrypt, refresh), User.class);
 
-        response.addHeader(HttpHeaders.AUTHORIZATION, access);
-        response.addHeader("Authorization_Refresh", refresh);
+        response.addHeader(Header.ACCESS_TOKEN.getValue(), access);
+        response.addHeader(Header.REFRESH_TOKEN.getValue(), refresh);
 
         return repository.save(user);
     }
 
-    public User signIn(User user) {
-        return null;
+    public User signIn(HttpServletResponse response, UserDto userDto) {
+
+        Optional<User> find = repository.findUserByPhone(userDto.getPhone());
+        User user = find.orElseThrow(() -> new IllegalArgumentException("아이디 혹은 비밀번호를 확인해주세요."));
+
+        if( !bcrypt.matches( userDto.getPassword(), user.getPassword() ) ) throw new IllegalArgumentException("아이디 혹은 비밀번호를 확인해주세요.");
+
+        UserDto dto = mapper.map(user, UserDto.class);
+        String refresh = tokenProvider.encrypt(dto, Boolean.FALSE);
+        String access = tokenProvider.encrypt(dto, Boolean.TRUE);
+
+        template.updatePushToken(userDto.getUuid(),refresh, userDto.getPushToken());
+        response.addHeader(Header.ACCESS_TOKEN.getValue(), access);
+        response.addHeader(Header.REFRESH_TOKEN.getValue(), refresh);
+
+        return user;
     }
 
-    public Boolean signOut(User user) {
-        return null;
+    public Boolean signOut(HttpServletResponse response, UserDto userDto) {
+        response.addHeader(Header.ACCESS_TOKEN.getValue(), "");
+        response.addHeader(Header.REFRESH_TOKEN.getValue(), "");
+        return template.signOut(userDto);
     }
-
-
 }
