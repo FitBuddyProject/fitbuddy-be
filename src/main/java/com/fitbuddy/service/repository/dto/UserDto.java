@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
+import org.springframework.data.annotation.Transient;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -41,7 +42,8 @@ public class UserDto implements JwtEncryptable {
     private LocalDateTime lastSignInDate;
 
     private List<MyBuddy> buddies;
-    @Setter(AccessLevel.PRIVATE)
+//    @Setter(AccessLevel.NONE)
+    @Transient
     private Boolean isNew = Boolean.FALSE;
 
     public UserDto beforeGenerateRefresh () {

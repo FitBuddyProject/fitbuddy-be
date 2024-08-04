@@ -28,20 +28,17 @@ public class UserController {
     }
 
     @PostMapping(value = "/sign/up")
-    public ResponseEntity signUp(HttpServletResponse response,
-                                 @Valid @Validated(value = {User.SignUp.class}) @RequestBody UserDto user) {
+    public ResponseEntity signUp(HttpServletResponse response, @Validated(value = {User.SignUp.class}) @RequestBody UserDto user) {
         return ResponseEntity.ok(service.signUp(response, user));
     }
 
     @PatchMapping(value = "/sign/in")
-    public ResponseEntity signIn(HttpServletResponse response,
-                                 @Valid @Validated(value = {User.SignIn.class}) @RequestBody UserDto user) {
+    public ResponseEntity signIn(HttpServletResponse response, @Validated(value = {User.SignIn.class}) @RequestBody UserDto user) {
         return ResponseEntity.ok(service.signIn(response, user));
     }
 
     @PatchMapping(value = "/sign/out")
-    public ResponseEntity signOut(HttpServletResponse response,
-                                  @Valid @Validated(value = {User.SignOut.class}) @RequestBody UserDto user) {
+    public ResponseEntity signOut(HttpServletResponse response, @Validated(value = {User.SignOut.class}) @RequestBody UserDto user) {
         return ResponseEntity.ok(service.signOut(response, user));
     }
 

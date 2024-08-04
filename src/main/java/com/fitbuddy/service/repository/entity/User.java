@@ -34,7 +34,10 @@ import java.util.List;
         "accountNonLocked",
         "credentialsNonExpired",
         "enabled",
-        "refreshToken"
+        "refreshToken",
+        "isNew",
+        "getId",
+        "isNew"
 }, allowGetters = false, allowSetters = true)
 
 public class User implements Persistable {

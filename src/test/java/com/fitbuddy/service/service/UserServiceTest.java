@@ -208,7 +208,6 @@ public class UserServiceTest {
             doReturn(Boolean.TRUE).when(template).updatePushToken(anyString(), anyString(), anyString());
 
 
-            System.out.println(service.signIn(new MockHttpServletResponse(), userDto));
             assertThat(service.signIn(new MockHttpServletResponse(), userDto))
 
                     .extracting("phone", "password")
