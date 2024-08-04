@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 
 public interface JwtEncryptable extends UserDetails {
     String getUuid();
+    void decodeUUID();
+    void encodeUUID();
     String getId();
     LocalDateTime getJoinDate();
     LocalDateTime getLastModifiedDate();
