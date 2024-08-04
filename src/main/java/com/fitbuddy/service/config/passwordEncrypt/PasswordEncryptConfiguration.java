@@ -1,5 +1,6 @@
 package com.fitbuddy.service.config.passwordEncrypt;
 
+import jakarta.validation.Validator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -10,4 +11,5 @@ public class PasswordEncryptConfiguration {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

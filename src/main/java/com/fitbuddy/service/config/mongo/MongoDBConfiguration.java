@@ -5,6 +5,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -22,9 +23,13 @@ import java.nio.charset.StandardCharsets;
 @Configuration(value = "mongo-db-configuration")
 @EnableTransactionManagement
 @RequiredArgsConstructor
-public class MongoDBConfiguration extends AbstractMongoClientConfiguration {
-    private final Environment environment;
-
+public class MongoDBConfiguration extends AbstractMongoClientConfiguration implements EnvironmentAware {
+    private Environment environment;
+    @Override
+    public void setEnvironment(Environment environment) {
+        System.out.println(environment);
+        this.environment = environment;
+    }
     private String host () {
         return environment.getProperty("spring.data.mongodb.host", String.class);
     }
@@ -47,25 +52,30 @@ public class MongoDBConfiguration extends AbstractMongoClientConfiguration {
     }
 
 
-    @Bean
-    public MongoTransactionManager transactionManager(MongoDatabaseFactory dbFactory) {
-        return new MongoTransactionManager(dbFactory);
-    }
+//    @Bean
+//    public MongoTransactionManager transactionManager(MongoDatabaseFactory dbFactory) {
+//        return new MongoTransactionManager(dbFactory);
+//    }
 
     @Override
     public MongoClient mongoClient() {
+
         String uri = String.format("mongodb://%s:%s@%s:%s/%s?authSource=%s",
-                this.userName(), this.password(),
-                this.host(),this.port(),
+                this.userName(),
+                this.password(),
+                this.host(),
+                this.port(),
                 this.getDatabaseName(), this.authenticationDatabase());
         ConnectionString connectionString = new ConnectionString(uri);
         return MongoClients.create(connectionString);
     }
 
     @Bean
-    public MongoTemplate mongoTemplate (MongoClient mongoCli) {
-        return new MongoTemplate(mongoCli, this.getDatabaseName());
+    public MongoTemplate mongoTemplate (MongoClient mongoClient) {
+        return new MongoTemplate(mongoClient, this.getDatabaseName());
     }
+
+
 }
 
 
