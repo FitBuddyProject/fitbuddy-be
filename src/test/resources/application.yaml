@@ -9,9 +9,13 @@ spring:
       - classpath:config/security.yaml
       - classpath:config/mongo.yaml
       - classpath:config/redis.yaml
+      - classpath:config/server.yaml
 
 security:
   ignore-jwt:
     - '/v1/user/sign/*'
+    - '/v1/user/verify/*'
   ignore-xss:
     - '/'
+
+
