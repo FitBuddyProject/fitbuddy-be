@@ -91,6 +91,7 @@ public class UserServiceTest {
             userDto.setPassword(password);
             userDto.setNickname(nickname);
             userDto.setEmail(email);
+            userDto.beforeGenerateRefresh();
             userDto.beforeInsert(bcrypt, "");
             HttpServletResponse response = new MockHttpServletResponse();
 
@@ -206,7 +207,10 @@ public class UserServiceTest {
             doReturn(refresh).when(tokenProvider).encrypt(userDto, false);
             doReturn(Boolean.TRUE).when(template).updatePushToken(anyString(), anyString(), anyString());
 
+
+            System.out.println(service.signIn(new MockHttpServletResponse(), userDto));
             assertThat(service.signIn(new MockHttpServletResponse(), userDto))
+
                     .extracting("phone", "password")
                     .isEqualTo(tuple(phone, passwordEnc).toList());
         }
