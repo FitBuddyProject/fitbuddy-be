@@ -4,7 +4,6 @@ import com.fitbuddy.service.etc.validations.User;
 import com.fitbuddy.service.repository.dto.UserDto;
 import com.fitbuddy.service.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,6 @@ import java.util.Set;
 @Slf4j
 public class UserController {
     private final UserService service;
-    private final Validator validator;
 
     @GetMapping(value = "/verify/{phone}")
     public ResponseEntity verify(@PathVariable(required = true, name = "phone") String phone) {
