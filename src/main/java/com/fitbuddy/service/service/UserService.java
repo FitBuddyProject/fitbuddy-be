@@ -8,6 +8,7 @@ import com.fitbuddy.service.repository.user.UserRepository;
 import com.fitbuddy.service.repository.user.UserTemplate;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -24,6 +25,7 @@ import java.util.stream.IntStream;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
     private final BCryptPasswordEncoder bcrypt;
     private final UserRepository repository;
@@ -55,6 +57,9 @@ public class UserService {
     public User signUp(HttpServletResponse response, UserDto dto) {
         if( template.isDuplicated(dto.getPhone()) ) throw new IllegalStateException("이미 존재하는 아이디입니다.");
 
+
+
+        dto.beforeGenerateRefresh();
         String refresh = tokenProvider.encrypt(dto, Boolean.FALSE);
         String access = tokenProvider.encrypt(dto, Boolean.TRUE);
         User user = mapper.map(dto.beforeInsert(bcrypt, refresh), User.class);
@@ -62,7 +67,8 @@ public class UserService {
         response.addHeader(Header.ACCESS_TOKEN.getValue(), access);
         response.addHeader(Header.REFRESH_TOKEN.getValue(), refresh);
 
-        return repository.save(user);
+        User result = repository.save(user);;
+        return result;
     }
 
     public User signIn(HttpServletResponse response, UserDto userDto) {
@@ -80,6 +86,12 @@ public class UserService {
         response.addHeader(Header.ACCESS_TOKEN.getValue(), access);
         response.addHeader(Header.REFRESH_TOKEN.getValue(), refresh);
 
+
+
+        log.error("!@#!@#!@#!@#!@#!@#!@!#");
+        log.error("access {}", access);
+        log.error("refresh {}", refresh);
+        log.error("user {}", user);
         return user;
     }
 

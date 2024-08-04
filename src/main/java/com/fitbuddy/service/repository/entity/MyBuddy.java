@@ -17,6 +17,8 @@ public class MyBuddy {
     @Id
     @Field(name = "uuid", targetType = FieldType.OBJECT_ID)
     private String uuid;
+    @Field(name = "userUuid")
+    private String userUuid;
     @Field(name = "buddy")
     private Buddy buddy;
     @Field(name = "isPrimary", targetType = FieldType.BOOLEAN)

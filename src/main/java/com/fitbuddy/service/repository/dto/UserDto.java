@@ -43,16 +43,23 @@ public class UserDto implements JwtEncryptable {
     private List<MyBuddy> buddies;
     @Setter(AccessLevel.PRIVATE)
     private Boolean isNew = Boolean.FALSE;
-    public UserDto beforeInsert (BCryptPasswordEncoder encoder, String refreshToken) {
-        this.password = encoder.encode(this.password);
-        this.uuid = Generators.timeBasedGenerator().generate().toString();
 
+    public UserDto beforeGenerateRefresh () {
+        this.uuid = Generators.timeBasedGenerator().generate().toString();
+        this.tired = 0L;
         this.joinDate = LocalDateTime.now();
         this.lastModifiedDate = this.joinDate;
         this.isNew = Boolean.TRUE;
         this.sendable = Boolean.FALSE;
 
+
+
+        return this;
+    }
+    public UserDto beforeInsert (BCryptPasswordEncoder encoder, String refreshToken) {
+        this.password = encoder.encode(this.password);
         this.refreshToken = refreshToken;
+
         return this;
     }
 
@@ -81,6 +88,17 @@ public class UserDto implements JwtEncryptable {
     @Override
     public boolean isEnabled() {
         return Boolean.TRUE;
+    }
+
+
+    @Override
+    public void decodeUUID() {
+        this.uuid.replaceAll("+", "-");
+    }
+
+    @Override
+    public void encodeUUID() {
+        this.uuid.replaceAll("-", "+");
     }
 
     @Override
