@@ -7,6 +7,7 @@ import com.fitbuddy.service.repository.entity.User;
 import com.fitbuddy.service.repository.user.UserRepository;
 import com.fitbuddy.service.repository.user.UserTemplate;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 
 import java.security.SecureRandom;
 import java.time.Duration;
@@ -23,7 +25,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 @Service
-@Transactional
+//@Transactional
 @RequiredArgsConstructor
 @Slf4j
 public class UserService {
@@ -87,11 +89,6 @@ public class UserService {
         response.addHeader(Header.REFRESH_TOKEN.getValue(), refresh);
 
 
-
-        log.error("!@#!@#!@#!@#!@#!@#!@!#");
-        log.error("access {}", access);
-        log.error("refresh {}", refresh);
-        log.error("user {}", user);
         return user;
     }
 

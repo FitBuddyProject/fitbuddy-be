@@ -5,19 +5,25 @@ import com.fitbuddy.service.repository.dto.UserDto;
 import com.fitbuddy.service.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping(value = "/v1/user")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
     private final UserService service;
+    private final Validator validator;
 
-    @GetMapping(value = "/verify/{phone:010\\d{7,8}}")
-    public ResponseEntity verify(@PathVariable String phone) {
+    @GetMapping(value = "/verify/{phone}")
+    public ResponseEntity verify(@PathVariable(required = true, name = "phone") String phone) {
         return ResponseEntity.ok(service.verify(phone));
     }
 

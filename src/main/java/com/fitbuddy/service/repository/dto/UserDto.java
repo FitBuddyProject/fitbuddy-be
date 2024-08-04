@@ -21,7 +21,7 @@ import static com.fitbuddy.service.etc.validations.User.*;
 public class UserDto implements JwtEncryptable {
     @NotEmpty(message = "로그아웃 시 UUID는 필수입니다.", groups = {SignOut.class})
     private String uuid;
-    @NotEmpty(message = "전화번호는 필수입니다.", groups = {SignUp.class, SignIn.class})
+    @NotEmpty(message = "전화번호는 필수입니다.", groups = {SignUp.class})
     private String phone;
     @NotEmpty(message = "비밀번호는 필수입니다.", groups = {SignUp.class, SignIn.class})
     private String password;
