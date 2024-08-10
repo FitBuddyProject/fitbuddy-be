@@ -16,8 +16,10 @@ operation::verify-test/success[snippets='http-request,http-response']
 === User 회원가입
 operation::회원가입[snippets='http-request,request-fields,http-response,response-fields']
 
-
-
 [[User-로그인]]
 === User 로그인
 operation::로그인[snippets='http-request,request-fields,http-response,response-fields']
+
+[[User-로그아웃]]
+=== User 로그아웃
+operation::로그아웃[snippets='http-request,request-fields,http-response']

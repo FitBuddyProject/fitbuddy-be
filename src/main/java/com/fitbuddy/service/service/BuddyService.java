@@ -1,5 +1,6 @@
 package com.fitbuddy.service.service;
 
+import com.fitbuddy.service.config.enumerations.Buddy;
 import com.fitbuddy.service.repository.buddy.BuddyRepository;
 import com.fitbuddy.service.repository.buddy.BuddyTemplate;
 import com.fitbuddy.service.repository.dto.MyBuddyDto;
@@ -18,15 +19,21 @@ public class BuddyService {
     private final BuddyRepository repository;
     private final BuddyTemplate template;
     private final ModelMapper mapper;
-    public List<MyBuddy> myBuddies(String uuid) {
-        return repository.findMyBuddiesByUserUuid(uuid);
+    public List<MyBuddy> myBuddies(String userUuid) {
+        return repository.findMyBuddiesByUserUuid(userUuid);
     }
 
     public MyBuddy makeFriend(MyBuddyDto myBuddy) {
-        return repository.save(mapper.map(myBuddy, MyBuddy.class));
+        MyBuddy buddy = repository.save(mapper.map(myBuddy.beforeInsert(), MyBuddy.class));
+        template.addFriend(buddy);
+        return buddy;
     }
 
     public boolean changePrimaryBuddy(MyBuddyDto myBuddy) {
         return template.changePrimaryBuddy(myBuddy);
+    }
+
+    public List<Buddy> dictionary(String userUuid) {
+        return template.dictionary(userUuid);
     }
 }

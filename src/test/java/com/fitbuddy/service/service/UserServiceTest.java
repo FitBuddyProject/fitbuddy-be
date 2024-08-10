@@ -205,7 +205,7 @@ public class UserServiceTest {
             doReturn(Optional.of(user)).when(repository).findUserByPhone(anyString());
             doReturn(access).when(tokenProvider).encrypt(userDto, true);
             doReturn(refresh).when(tokenProvider).encrypt(userDto, false);
-            doReturn(Boolean.TRUE).when(template).updatePushToken(anyString(), anyString(), anyString());
+            doReturn(Boolean.TRUE).when(template).syncUser(anyString(), anyString(), anyString());
 
 
             assertThat(service.signIn(new MockHttpServletResponse(), userDto))

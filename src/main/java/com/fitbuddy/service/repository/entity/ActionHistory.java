@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class ActionHistory {
 
     @Id
-    @Field(name = "uuid", targetType = FieldType.OBJECT_ID)
+    @Field(name = "_id", targetType = FieldType.OBJECT_ID)
     private String uuid;
 
     @Field(name = "action")

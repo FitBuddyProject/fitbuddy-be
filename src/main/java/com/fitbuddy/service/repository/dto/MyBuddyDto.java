@@ -2,6 +2,7 @@ package com.fitbuddy.service.repository.dto;
 
 import com.fitbuddy.service.config.enumerations.Action;
 import com.fitbuddy.service.config.enumerations.Buddy;
+import com.fitbuddy.service.etc.uuid.Uuid;
 import com.fitbuddy.service.repository.entity.ActionHistory;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -27,5 +28,13 @@ public class MyBuddyDto {
     private Action action;
     private LocalDateTime whenStart;
     private LocalDateTime whenEnd;
+
+    private boolean isNew = false;
+
+    public MyBuddyDto beforeInsert(){
+        this.uuid = Uuid.generate();
+        this.isNew = Boolean.TRUE;
+        return this;
+    }
 
 }

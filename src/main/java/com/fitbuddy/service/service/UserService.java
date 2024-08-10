@@ -7,7 +7,6 @@ import com.fitbuddy.service.repository.entity.User;
 import com.fitbuddy.service.repository.user.UserRepository;
 import com.fitbuddy.service.repository.user.UserTemplate;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -15,9 +14,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.annotation.Validated;
 
 import java.security.SecureRandom;
 import java.time.Duration;
@@ -84,7 +81,7 @@ public class UserService {
         String refresh = tokenProvider.encrypt(dto, Boolean.FALSE);
         String access = tokenProvider.encrypt(dto, Boolean.TRUE);
 
-        template.updatePushToken(userDto.getUuid(),refresh, userDto.getPushToken());
+        template.syncUser(userDto.getUuid(),refresh, userDto.getPushToken());
         response.addHeader(Header.ACCESS_TOKEN.getValue(), access);
         response.addHeader(Header.REFRESH_TOKEN.getValue(), refresh);
 
@@ -96,5 +93,12 @@ public class UserService {
         response.addHeader(Header.ACCESS_TOKEN.getValue(), "");
         response.addHeader(Header.REFRESH_TOKEN.getValue(), "");
         return template.signOut(userDto);
+    }
+
+    public Boolean syncPushToken(UserDto user) {
+        return template.syncPushToken(user);
+    }
+
+    public Boolean syncTired(UserDto user) {return template.syncTired(user);
     }
 }

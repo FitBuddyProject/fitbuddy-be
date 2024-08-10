@@ -1,5 +1,6 @@
 package com.fitbuddy.service.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fitbuddy.service.config.RestDocument;
 import com.fitbuddy.service.etc.enumerates.Header;
@@ -195,7 +196,7 @@ public class UserControllerTest {
         @BeforeAll
         public void setup() {
             userDto = new UserDto();
-            userDto.setPhone("01011111111");
+            userDto.setPhone("01015677586");
             userDto.setPassword("1212");
         }
 
@@ -261,6 +262,37 @@ public class UserControllerTest {
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     public class SignOutTest {
+        private final String url = "/sign/out";
+        UserDto userDto;
+        @BeforeAll
+        public void setup() {
+            userDto = new UserDto();
+            userDto.setUuid("b6f51fbaabe22df58eaca01e");
+        }
+
+        @Test
+        @DisplayName(value = "성공")
+        public void success () throws Exception {
+            String bodyJson = objectMapper.writeValueAsString(userDto);
+            mockMvc.perform(
+                            patch(prefix + url)
+                                    .contentType(MediaType.APPLICATION_JSON)
+                                    .content(bodyJson))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$").isBoolean())
+                    .andDo(print())
+                    .andDo(RestDocument.build("로그아웃")
+                            .rqSnippet(simpleRequestFields(Map.of(
+                                    "uuid", "고유번호"
+                            )))
+                            .rsSnippet(
+                                    RestDocument.simpleResponseFields(new HashMap<>())
+                            ).build()
+
+                    );
+
+        }
+
 
     }
 }

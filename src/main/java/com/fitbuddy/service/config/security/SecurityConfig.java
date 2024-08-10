@@ -30,10 +30,6 @@ public class SecurityConfig {
     private final Properties properties;
 
 
-    @PostConstruct
-    public void online () {
-        System.out.println("SECURITY");
-    }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {

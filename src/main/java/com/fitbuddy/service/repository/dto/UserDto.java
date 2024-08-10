@@ -2,8 +2,11 @@ package com.fitbuddy.service.repository.dto;
 
 import com.fasterxml.uuid.Generators;
 import com.fitbuddy.service.config.security.jwt.JwtEncryptable;
+import com.fitbuddy.service.etc.uuid.Uuid;
 import com.fitbuddy.service.repository.entity.MyBuddy;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,7 +23,7 @@ import static com.fitbuddy.service.etc.validations.User.*;
 @Data
 @EqualsAndHashCode(of = {"uuid", "phone"})
 public class UserDto implements JwtEncryptable {
-    @NotEmpty(message = "로그아웃 시 UUID는 필수입니다.", groups = {SignOut.class})
+    @NotEmpty(message = "로그아웃 시 UUID는 필수입니다.", groups = {SignOut.class, SyncPushToken.class, SyncTired.class})
     private String uuid;
     @NotEmpty(message = "전화번호는 필수입니다.", groups = {SignUp.class})
     private String phone;
@@ -30,9 +33,13 @@ public class UserDto implements JwtEncryptable {
     private String nickname;
     private String email;
     private String refreshToken;
+    @NotEmpty(message = "푸시 토큰은 필수입니다.", groups = {SyncPushToken.class})
     private String pushToken;
+    @NotNull(message = "피로도는 Null이 될 수 없습니다.", groups = {SyncTired.class})
+    @Min(message = "피로도는 0이 최소 값입니다.", value = 0, groups = {SyncTired.class} )
+    @Min(message = "피로도는 100이 최대 값입니다.", value = 100, groups = {SyncTired.class} )
     private Long tired;
-    @Setter(AccessLevel.PRIVATE)
+    @Setter
     private Boolean sendable;
     @Setter(AccessLevel.PRIVATE)
     private LocalDateTime joinDate;
@@ -47,7 +54,7 @@ public class UserDto implements JwtEncryptable {
     private Boolean isNew = Boolean.FALSE;
 
     public UserDto beforeGenerateRefresh () {
-        this.uuid = Generators.timeBasedGenerator().generate().toString();
+        this.uuid = Uuid.generate();
         this.tired = 0L;
         this.joinDate = LocalDateTime.now();
         this.lastModifiedDate = this.joinDate;
