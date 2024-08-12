@@ -11,12 +11,6 @@ spring:
       - classpath:config/redis.yaml
       - classpath:config/server.yaml
 
-security:
-  ignore-jwt:
-    - '/v1/user/sign/*'
-    - '/v1/user/verify/*'
-  ignore-xss:
-    - '/'
 
 
 logging:
