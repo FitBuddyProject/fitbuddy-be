@@ -41,7 +41,14 @@ public class BuddyTemplate {
     }
 
     public List<Buddy> dictionary(String userUuid) {
-        Query query = Query.query(Criteria.where("userId").is(userUuid));
+        Query query = Query.query(Criteria.where("userUuid").is(userUuid));
         return mongoTemplate.findDistinct(query, "buddy", MyBuddy.class, Buddy.class);
+    }
+
+    public Boolean earnExp(MyBuddyDto myBuddy) {
+        Query query = Query.query(Criteria.where("_id").is(new ObjectId(myBuddy.getUuid())));
+        Update update = new Update();
+        update.inc("exp", myBuddy.getExp());
+        return mongoTemplate.updateFirst(query, update, MyBuddy.class).getModifiedCount() > 0;
     }
 }

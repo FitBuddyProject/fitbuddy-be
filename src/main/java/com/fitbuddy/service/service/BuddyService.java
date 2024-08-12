@@ -36,4 +36,8 @@ public class BuddyService {
     public List<Buddy> dictionary(String userUuid) {
         return template.dictionary(userUuid);
     }
+
+    public Boolean earnExp(MyBuddyDto myBuddy) {
+        return template.earnExp(myBuddy);
+    }
 }
