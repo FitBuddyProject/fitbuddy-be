@@ -347,7 +347,7 @@ public class UserControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$").isBoolean())
                     .andDo(print())
-                    .andDo(RestDocument.build("푸시 토큰 싱크")
+                    .andDo(RestDocument.build("피로도 싱크")
                             .rqSnippet(simpleRequestFields(Map.of(
                                     "uuid", "고유번호",
                                     "tired", "피로도"

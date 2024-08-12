@@ -5,8 +5,10 @@ import com.fitbuddy.service.repository.dto.MyBuddyDto;
 import com.fitbuddy.service.service.BuddyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import static com.fitbuddy.service.etc.validations.MyBuddy.*;
 @RestController
 @RequestMapping(value = "/v1/buddy")
 @RequiredArgsConstructor
@@ -19,17 +21,17 @@ public class BuddyController {
     }
 
     @PostMapping(value = "/make-friends")
-    public ResponseEntity makeFriend(@RequestBody MyBuddyDto myBuddy) {
+    public ResponseEntity makeFriend( @Validated(value = MakeFriends.class) @RequestBody MyBuddyDto myBuddy) {
         return ResponseEntity.ok(service.makeFriend(myBuddy));
     }
 
     @PatchMapping(value = "/earn-exp")
-    public ResponseEntity earnExp(@RequestBody MyBuddyDto myBuddy) {
+    public ResponseEntity earnExp( @Validated(value = EarnExp.class) @RequestBody MyBuddyDto myBuddy) {
         return ResponseEntity.ok(service.earnExp(myBuddy));
     }
 
     @PatchMapping(value = "/see-ya")
-    public ResponseEntity changePrimaryBuddy( @RequestBody MyBuddyDto myBuddy) {
+    public ResponseEntity changePrimaryBuddy( @Validated(value = ChangePrimary.class) @RequestBody MyBuddyDto myBuddy) {
             return ResponseEntity.ok(service.changePrimaryBuddy(myBuddy));
     }
 

@@ -32,6 +32,10 @@ public class BuddyTemplate {
         return mongoTemplate.updateFirst(query,update, MyBuddy.class).getModifiedCount() > 0;
     }
 
+    public boolean isExist(Buddy buddy, String userUuid) {
+        Query query = Query.query(Criteria.where("userUuid").is(userUuid).and("buddy").is(buddy));
+        return mongoTemplate.exists(query, MyBuddy.class);
+    }
     public void addFriend(MyBuddy buddy) {
         String userUuid = buddy.getUserUuid();
         Query query = Query.query(Criteria.where("_id").is(new ObjectId(userUuid)));
@@ -51,4 +55,6 @@ public class BuddyTemplate {
         update.inc("exp", myBuddy.getExp());
         return mongoTemplate.updateFirst(query, update, MyBuddy.class).getModifiedCount() > 0;
     }
+
+
 }

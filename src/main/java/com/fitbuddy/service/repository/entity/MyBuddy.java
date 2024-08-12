@@ -3,6 +3,7 @@ package com.fitbuddy.service.repository.entity;
 import com.fitbuddy.service.config.enumerations.Action;
 import com.fitbuddy.service.config.enumerations.Buddy;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Document(collection = "MyBuddy")
 @Getter
+@ToString
 public class MyBuddy  implements Persistable {
 
     @Id
@@ -50,7 +52,6 @@ public class MyBuddy  implements Persistable {
     public Object getId() {
         return this.uuid;
     }
-
     @Override
     public boolean isNew() {
         return this.isNew;

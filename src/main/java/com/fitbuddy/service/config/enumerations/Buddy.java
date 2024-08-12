@@ -2,19 +2,20 @@ package com.fitbuddy.service.config.enumerations;
 
 import lombok.Getter;
 
+
+
 @Getter
-public enum Buddy {
-    CHICKEN_LV1("치킨", "치킨", 1),
-    CHICKEN_LV2("치킨", "치킨", 2),
-    CHICKEN_LV3("치킨", "치킨", 3);
+public enum Buddy{
+    CHICKEN("치킨", "치킨"),
+    RABBIT("토끼", "토끼"),
+    DUCK("오리", "오리");
 
     private String name;
     private String description;
-    private int level;
 
-    Buddy(String name, String description, int level) {
+
+    Buddy(String name, String description) {
         this.name = name;
         this.description = description;
-        this.level = level;
     }
 }

@@ -16,7 +16,7 @@ public class Advisor {
 
     @ExceptionHandler(value = RuntimeException.class)
     @ResponseBody
-    public ResponseEntity handleRuntimeException (RuntimeException e) {
+    public ResponseEntity handleRuntimeException ( RuntimeException e ) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                              .body(e.getMessage());
     }

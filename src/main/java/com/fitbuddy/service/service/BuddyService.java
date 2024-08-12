@@ -7,6 +7,8 @@ import com.fitbuddy.service.repository.dto.MyBuddyDto;
 import com.fitbuddy.service.repository.entity.MyBuddy;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,7 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class BuddyService {
+    private static final Logger log = LoggerFactory.getLogger(BuddyService.class);
     private final BuddyRepository repository;
     private final BuddyTemplate template;
     private final ModelMapper mapper;
@@ -24,6 +27,8 @@ public class BuddyService {
     }
 
     public MyBuddy makeFriend(MyBuddyDto myBuddy) {
+
+        if( template.isExist(myBuddy.getBuddy(), myBuddy.getUserUuid()) ) throw new IllegalStateException("이미 친구가 된 버디입니다.");
         MyBuddy buddy = repository.save(mapper.map(myBuddy.beforeInsert(), MyBuddy.class));
         template.addFriend(buddy);
         return buddy;
