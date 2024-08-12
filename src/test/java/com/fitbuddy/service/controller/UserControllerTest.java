@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
@@ -24,6 +25,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.util.UriTemplate;
 
 import java.security.SecureRandom;
 import java.util.HashMap;
@@ -31,8 +33,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static com.fitbuddy.service.config.RestDocument.simpleRequestFields;
-import static com.fitbuddy.service.config.RestDocument.simpleResponseFields;
+import static com.fitbuddy.service.config.RestDocument.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
@@ -79,31 +80,14 @@ public class UserControllerTest {
         @DisplayName(value = "성공")
         public void success() throws Exception {
             String phone = randomPhone();
-            mockMvc.perform(get(String.format(prefix + url + "%s", phone)))
+
+            String uri = String.format(prefix+url+"/%s", "{phone}");
+            mockMvc.perform(RestDocumentationRequestBuilders.get(uri, phone))
                     .andExpect(status().isOk())
                     .andDo(
-
-                            RestDocument.build("회원가입")
-                                       .rqSnippet(simpleRequestFields(Map.of(
-                                               "phone","전화번호",
-                                               "password","비밀번호",
-                                               "nickname","닉네임"
-                                       )))
-                                    .rsSnippet(RestDocument.simpleResponseFields(new HashMap<>() {{
-                                        put("uuid","UUID");
-                                        put("phone","전화번호");
-                                        put("nickname","닉네임");
-                                        put("email","이메일");
-                                        put("pushToken","푸시 토큰");
-                                        put("tired","피로도");
-                                        put("sendable","푸시 전송 가능 여부");
-                                        put("joinDate","회원 가입일");
-                                        put("lastModifiedDate","마지막 수정일");
-                                        put("lastSignInDate","마지막 로그인 날짜");
-                                        put("buddies","버디");
-                                    }}))
-                                    .build()
-
+                            RestDocument.build("인증번호 발송")
+                                        .pathSnippet(simplePathParameters(Map.of("phone", "전화번호")))
+                                        .build()
                     );
         }
 
@@ -260,6 +244,7 @@ public class UserControllerTest {
 
 
     @Nested
+    @DisplayName("로그아웃 테스트")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     public class SignOutTest {
         private final String url = "/sign/out";
@@ -292,7 +277,86 @@ public class UserControllerTest {
                     );
 
         }
+    }
 
+    @Nested
+    @DisplayName("푸시 토큰 싱크 테스트")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    public class SyncPushTokenTest {
+        private final String url = "/sync/push-token";
+        private final String pushToken = "PUSH_TOKEN_TEST";
+        UserDto userDto;
+        @BeforeAll
+        public void setup() {
+            userDto = new UserDto();
+            userDto.setUuid("b6f51fbaabe22df58eaca01e");
+            userDto.setPushToken(pushToken);
 
+        }
+
+        @Test
+        @DisplayName("성공")
+        public void success () throws Exception {
+            String body = objectMapper.writeValueAsString(userDto);
+            mockMvc
+            .perform(
+                RestDocumentationRequestBuilders.patch(prefix+url)
+                                                .content(body)
+                                                .contentType(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$").isBoolean())
+            .andDo(print())
+            .andDo(RestDocument.build("푸시 토큰 싱크")
+                    .rqSnippet(simpleRequestFields(Map.of(
+                            "uuid", "고유번호",
+                            "pushToken", "푸시토큰"
+                    )))
+                    .rsSnippet(
+                            RestDocument.simpleResponseFields(new HashMap<>())
+                    ).build()
+
+            );
+        }
+    }
+
+    @Nested
+    @DisplayName("피로도 싱크 테스트")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    public class SyncTiredTest {
+        private final String url = "/sync/tired";
+        private final Long tired = 0L;
+        UserDto userDto;
+        @BeforeAll
+        public void setup() {
+            userDto = new UserDto();
+            userDto.setUuid("b6f51fbaabe22df58eaca01e");
+            userDto.setTired(tired);
+        }
+
+        @Test
+        @DisplayName("성공")
+        public void success () throws Exception {
+            String body = objectMapper.writeValueAsString(userDto);
+            mockMvc
+                    .perform(
+                            RestDocumentationRequestBuilders.patch(prefix+url)
+                                    .content(body)
+                                    .contentType(MediaType.APPLICATION_JSON)
+                    )
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$").isBoolean())
+                    .andDo(print())
+                    .andDo(RestDocument.build("푸시 토큰 싱크")
+                            .rqSnippet(simpleRequestFields(Map.of(
+                                    "uuid", "고유번호",
+                                    "tired", "피로도"
+                            )))
+                            .rsSnippet(
+                                    RestDocument.simpleResponseFields(new HashMap<>())
+                            ).build()
+
+                    );
+        }
     }
 }

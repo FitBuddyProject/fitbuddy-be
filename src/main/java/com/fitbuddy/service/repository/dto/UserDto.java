@@ -4,6 +4,7 @@ import com.fasterxml.uuid.Generators;
 import com.fitbuddy.service.config.security.jwt.JwtEncryptable;
 import com.fitbuddy.service.etc.uuid.Uuid;
 import com.fitbuddy.service.repository.entity.MyBuddy;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -37,7 +38,7 @@ public class UserDto implements JwtEncryptable {
     private String pushToken;
     @NotNull(message = "피로도는 Null이 될 수 없습니다.", groups = {SyncTired.class})
     @Min(message = "피로도는 0이 최소 값입니다.", value = 0, groups = {SyncTired.class} )
-    @Min(message = "피로도는 100이 최대 값입니다.", value = 100, groups = {SyncTired.class} )
+    @Max(message = "피로도는 100이 최대 값입니다.", value = 100, groups = {SyncTired.class} )
     private Long tired;
     @Setter
     private Boolean sendable;

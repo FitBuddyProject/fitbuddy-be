@@ -44,8 +44,6 @@ public class UserServiceTest {
     private UserTemplate template;
     @Spy
     private ModelMapper mapper;
-    @Mock(answer = Answers.RETURNS_MOCKS)
-    private MongoTemplate mongoTemplate;
     @Spy
     private RedisTemplate<String, String> redisTemplate;
     @Mock
@@ -73,7 +71,6 @@ public class UserServiceTest {
             assertThatThrownBy(() -> service.verify(phone)).isInstanceOf(IllegalStateException.class);
         }
     }
-
 
     @Nested
     @DisplayName("회원 가입")
@@ -213,5 +210,24 @@ public class UserServiceTest {
                     .extracting("phone", "password")
                     .isEqualTo(tuple(phone, passwordEnc).toList());
         }
+    }
+
+    @Nested
+    @DisplayName("로그아웃 테스트")
+    class SignOutTest {
+        @Test
+        @DisplayName("성공")
+        public void success() {
+            //given
+            HttpServletResponse mockHttpServletResponse = new MockHttpServletResponse();
+            UserDto userDto = new UserDto();
+
+            when(template.signOut(userDto)).thenReturn(Boolean.TRUE);
+
+
+            assertThat(service.signOut(mockHttpServletResponse, userDto))
+                    .isEqualTo(Boolean.TRUE);
+        }
+
     }
 }
