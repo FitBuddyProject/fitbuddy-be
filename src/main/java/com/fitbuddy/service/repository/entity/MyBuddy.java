@@ -55,4 +55,5 @@ public class MyBuddy  implements Persistable {
     public boolean isNew() {
         return this.isNew;
     }
+
 }
