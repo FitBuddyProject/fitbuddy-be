@@ -1,5 +1,6 @@
 package com.fitbuddy.service.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fitbuddy.service.config.enumerations.Action;
 import com.fitbuddy.service.config.enumerations.Buddy;
 import lombok.Getter;
@@ -18,12 +19,13 @@ import java.util.List;
 @Document(collection = "MyBuddy")
 @Getter
 @ToString
+@JsonIgnoreProperties(value = {"new", "id"})
 public class MyBuddy  implements Persistable {
 
     @Id
     @Field(name = "_id", targetType = FieldType.OBJECT_ID)
     private String uuid;
-    @Field(name = "userUuid")
+    @Field(name = "user_id")
     private String userUuid;
     @Field(name = "buddy")
     private Buddy buddy;

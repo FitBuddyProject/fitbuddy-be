@@ -14,6 +14,7 @@ public class Fitness {
     @Id
     @Field(value = "_id", targetType = FieldType.OBJECT_ID)
     private String uuid;
+    @Field(name = "user_id")
     private String userUuid;
     private String type;
     private int duration;
