@@ -89,7 +89,67 @@ public class MyBuddyServiceTest {
 
     @Nested
     @DisplayName("메인 친구 설정")
+    @TestInstance(TestInstance.Lifecycle.PER_METHOD)
     class ChangePrimaryBuddy {
 
+        private MyBuddyDto buddyDto;
+        private MyBuddy buddy;
+
+        @BeforeEach
+        public void setUp () {
+            mapper.getConfiguration()
+                    .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
+                    .setFieldMatchingEnabled(true);
+
+            buddyDto = new MyBuddyDto();
+            buddyDto.setUserUuid("UUID");
+            buddyDto.setBuddy(Buddy.CHICKEN);
+            buddyDto.setName("병아리");
+            buddyDto.setIsPrimary(Boolean.TRUE);
+
+            buddy = mapper.map(buddyDto.beforeInsert(), MyBuddy.class);
+        }
+
+        @Test
+        @DisplayName("성공")
+        public void success () {
+            when(template.changePrimaryBuddy(buddyDto)).thenReturn(Boolean.TRUE);
+            assertThat(service.changePrimaryBuddy(buddyDto)).isTrue();
+        }
+
     }
+
+    @Nested
+    @DisplayName("경험치 획득")
+    @TestInstance(TestInstance.Lifecycle.PER_METHOD)
+    class EarnExp {
+
+        private MyBuddyDto buddyDto;
+        private MyBuddy buddy;
+
+        @BeforeEach
+        public void setUp () {
+            mapper.getConfiguration()
+                    .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE)
+                    .setFieldMatchingEnabled(true);
+
+            buddyDto = new MyBuddyDto();
+            buddyDto.setUserUuid("UUID");
+            buddyDto.setBuddy(Buddy.CHICKEN);
+            buddyDto.setName("병아리");
+            buddyDto.setIsPrimary(Boolean.TRUE);
+
+            buddy = mapper.map(buddyDto.beforeInsert(), MyBuddy.class);
+        }
+
+        @Test
+        @DisplayName("성공")
+        public void success () {
+            when(template.earnExp(buddyDto)).thenReturn(Boolean.TRUE);
+            assertThat(service.earnExp(buddyDto)).isTrue();
+        }
+
+    }
+
+
 }

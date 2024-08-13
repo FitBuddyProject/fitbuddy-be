@@ -81,7 +81,7 @@ public class UserControllerTest {
         public void success() throws Exception {
             String phone = randomPhone();
 
-            String uri = String.format(prefix+url+"/%s", "{phone}");
+            String uri = String.format(prefix+url+"%s", "{phone}");
             mockMvc.perform(RestDocumentationRequestBuilders.get(uri, phone))
                     .andExpect(status().isOk())
                     .andDo(
