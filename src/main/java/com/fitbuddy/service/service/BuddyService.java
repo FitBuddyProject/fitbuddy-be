@@ -6,9 +6,8 @@ import com.fitbuddy.service.repository.buddy.BuddyTemplate;
 import com.fitbuddy.service.repository.dto.MyBuddyDto;
 import com.fitbuddy.service.repository.entity.MyBuddy;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +16,8 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class BuddyService {
-    private static final Logger log = LoggerFactory.getLogger(BuddyService.class);
     private final BuddyRepository repository;
     private final BuddyTemplate template;
     private final ModelMapper mapper;

@@ -5,6 +5,7 @@ import com.fitbuddy.service.repository.dto.MyBuddyDto;
 import com.fitbuddy.service.repository.entity.MyBuddy;
 import com.fitbuddy.service.repository.entity.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -16,13 +17,14 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class BuddyTemplate {
     private final MongoTemplate mongoTemplate;
 
     public boolean changePrimaryBuddy(MyBuddyDto myBuddy) {
         String trueUUID = myBuddy.getUuid();
         String userUUID = myBuddy.getUserUuid();
-        Query queryMulti = Query.query(Criteria.where("userUuid").is(userUUID).and("uuid").not().is(new ObjectId(trueUUID)));
+        Query queryMulti = Query.query(Criteria.where("userUuid").is(userUUID).and("uuid").ne(new ObjectId(trueUUID)));
         Update updateMulti = Update.update("isPrimary", Boolean.FALSE);
 
         Query query = Query.query(Criteria.where("id").is(userUUID));
@@ -33,11 +35,22 @@ public class BuddyTemplate {
     }
 
     public boolean isExist(Buddy buddy, String userUuid) {
-        Query query = Query.query(Criteria.where("userUuid").is(userUuid).and("buddy").is(buddy));
+        Query query = Query.query(Criteria.where("user_id").is(userUuid).and("buddy").is(buddy));
+
         return mongoTemplate.exists(query, MyBuddy.class);
     }
     public void addFriend(MyBuddy buddy) {
         String userUuid = buddy.getUserUuid();
+
+        mongoTemplate.updateMulti(
+                Query.query(
+                        Criteria.where("user_id").is(userUuid)
+                                .and("_id").not().is(new ObjectId(buddy.getUuid()))
+                ),
+                Update.update("isPrimary", Boolean.FALSE),
+                MyBuddy.class
+        );
+
         Query query = Query.query(Criteria.where("_id").is(new ObjectId(userUuid)));
         Update update = new Update();
         update.addToSet("buddies", buddy);
