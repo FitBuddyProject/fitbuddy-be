@@ -436,17 +436,30 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
 </head>
-<body class="book">
+<body class="book toc2 toc-left">
 <div id="header">
-<div id="toc" class="toc">
+<div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#User-API">User API</a>
 <ul class="sectlevel2">
-<li><a href="#User-회원_인증번호_발송">User 회원 인증번호 발송</a></li>
-<li><a href="#User-회원가입">User 회원가입</a></li>
-<li><a href="#User-로그인">User 로그인</a></li>
+<li><a href="#User-회원_인증번호_발송">회원 인증번호 발송</a></li>
+<li><a href="#User-회원가입">회원가입</a></li>
+<li><a href="#User-로그인">로그인</a></li>
+<li><a href="#User-로그아웃">로그아웃</a></li>
+<li><a href="#User-푸시_토큰_싱크">푸시_토큰_싱크</a></li>
+<li><a href="#User-피로도_싱크">피로도_싱크</a></li>
+</ul>
+</li>
+<li><a href="#Buddy-API">Buddy API</a>
+<ul class="sectlevel2">
+<li><a href="#Buddy-친구_사귀기">친구 사귀기</a></li>
+<li><a href="#Buddy-내_친구들">내 친구들</a></li>
+<li><a href="#Buddy-경험치_조정">경험치 조정</a></li>
+<li><a href="#Buddy-메인_버디_설정">메인 버디 설정</a></li>
+<li><a href="#Buddy-버디_도감">버디 도감</a></li>
 </ul>
 </li>
 </ul>
@@ -457,43 +470,65 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="User-API"><a class="link" href="#User-API">User API</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="User-회원_인증번호_발송"><a class="link" href="#User-회원_인증번호_발송">User 회원 인증번호 발송</a></h3>
+<h3 id="User-회원_인증번호_발송"><a class="link" href="#User-회원_인증번호_발송">회원 인증번호 발송</a></h3>
 <div class="sect3">
 <h4 id="User-회원_인증번호_발송_http_request"><a class="link" href="#User-회원_인증번호_발송_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /v1/user/verify/01048732445 HTTP/1.1
-Host: localhost:8080</code></pre>
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /v1/user/verify/01004620858 HTTP/1.1
+Host: docs.api.com</code></pre>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="User-회원_인증번호_발송_path_parameters"><a class="link" href="#User-회원_인증번호_발송_path_parameters">Path parameters</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /v1/user/verify/{phone}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>phone</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전화번호</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="User-회원_인증번호_발송_http_response"><a class="link" href="#User-회원_인증번호_발송_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: text/plain;charset=UTF-8
 Content-Length: 8
 
-07496145</code></pre>
+36724125</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="User-회원가입"><a class="link" href="#User-회원가입">User 회원가입</a></h3>
+<h3 id="User-회원가입"><a class="link" href="#User-회원가입">회원가입</a></h3>
 <div class="sect3">
 <h4 id="User-회원가입_http_request"><a class="link" href="#User-회원가입_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /v1/user/sign/up HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /v1/user/sign/up HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 502
-Host: localhost:8080
+Host: docs.api.com
 
 {
   "uuid" : null,
-  "phone" : "01007748185",
+  "phone" : "01030337501",
   "password" : "1212",
   "nickname" : "test",
   "email" : null,
@@ -507,10 +542,10 @@ Host: localhost:8080
   "buddies" : null,
   "isNew" : false,
   "enabled" : true,
-  "id" : "01007748185",
+  "id" : "01030337501",
   "credentialsNonExpired" : true,
   "authorities" : [ ],
-  "username" : "01007748185",
+  "username" : "01030337501",
   "accountNonExpired" : true,
   "accountNonLocked" : true
 }</code></pre>
@@ -518,49 +553,156 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect3">
+<h4 id="User-회원가입_request_fields"><a class="link" href="#User-회원가입_request_fields">Request fields</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">비밀번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nickname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">닉네임</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>phone</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전화번호</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
 <h4 id="User-회원가입_http_response"><a class="link" href="#User-회원가입_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Authorization: eyJ0b2tlblR5cGUiOiJBQ0NFU1MiLCJhbGciOiJIUzI1NiJ9.eyJCT0RZIjoie1wibGFzdE1vZGlmaWVkRGF0ZVwiOlwiMjAyNC0wOC0wNFQxNjoxODozOS43MzMyOFwiLFwiaWRcIjpcIjAxMDA3NzQ4MTg1XCIsXCJ1dWlkXCI6XCJjNWNmMGFjMi01MjMxLTExZWYtYjI1Ny05OWQ0ZDMwNWQxMjBcIixcImpvaW5EYXRlXCI6XCIyMDI0LTA4LTA0VDE2OjE4OjM5LjczMzI4XCJ9IiwiaXNzIjoiZml0QnVkZHkiLCJqdGkiOiJjNWNmMGFjMi01MjMxLTExZWYtYjI1Ny05OWQ0ZDMwNWQxMjAiLCJleHAiOjE3MjI3NTU5MTksIm5iZiI6MTcyMjc1NTkxOSwiaWF0IjoxNzIzMzYwNzE5fQ.gehcxsr6htSs5E_lMf0Tv80lkyh5ZXit-CCIKpGZF1c
-Authorization_refresh: eyJ0b2tlblR5cGUiOiJSRUZSRVNIIiwiYWxnIjoiSFMyNTYifQ.eyJCT0RZIjoie1wibGFzdE1vZGlmaWVkRGF0ZVwiOlwiMjAyNC0wOC0wNFQxNjoxODozOS43MzMyOFwiLFwiaWRcIjpcIjAxMDA3NzQ4MTg1XCIsXCJ1dWlkXCI6XCJjNWNmMGFjMi01MjMxLTExZWYtYjI1Ny05OWQ0ZDMwNWQxMjBcIixcImpvaW5EYXRlXCI6XCIyMDI0LTA4LTA0VDE2OjE4OjM5LjczMzI4XCJ9IiwiaXNzIjoiZml0QnVkZHkiLCJqdGkiOiJjNWNmMGFjMi01MjMxLTExZWYtYjI1Ny05OWQ0ZDMwNWQxMjAiLCJleHAiOjE3MjI3NTU5MTksIm5iZiI6MTcyMjc1NTkxOSwiaWF0IjoxNzIzMzYwNzE5fQ.OECKHOEfaWa4JskV-Vt-lNu1jMofxWdOlsdAdYsaqeA
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Authorization: eyJ0b2tlblR5cGUiOiJBQ0NFU1MiLCJhbGciOiJIUzI1NiJ9.eyJCT0RZIjoie1wiaWRcIjpcIjAxMDMwMzM3NTAxXCIsXCJ1dWlkXCI6XCIyMjJjNzhhM2YyMTkyYjNiODdhMTg2MjdcIixcImpvaW5EYXRlXCI6XCIyMDI0LTA4LTEzVDIzOjQzOjAzLjk0MDk1MVwiLFwibGFzdE1vZGlmaWVkRGF0ZVwiOlwiMjAyNC0wOC0xM1QyMzo0MzowMy45NDA5NTFcIn0iLCJpc3MiOiJmaXRCdWRkeSIsImp0aSI6IjIyMmM3OGEzZjIxOTJiM2I4N2ExODYyNyIsImV4cCI6MTcyMzU2MDE4MywibmJmIjoxNzIzNTYwMTgzLCJpYXQiOjE3MjQxNjQ5ODN9.XO3Y_3kUEnPsJ84yT0t1U3MXECO2Dkf92KYUYnOJH7s
+Authorization_refresh: eyJ0b2tlblR5cGUiOiJSRUZSRVNIIiwiYWxnIjoiSFMyNTYifQ.eyJCT0RZIjoie1wiaWRcIjpcIjAxMDMwMzM3NTAxXCIsXCJ1dWlkXCI6XCIyMjJjNzhhM2YyMTkyYjNiODdhMTg2MjdcIixcImpvaW5EYXRlXCI6XCIyMDI0LTA4LTEzVDIzOjQzOjAzLjk0MDk1MVwiLFwibGFzdE1vZGlmaWVkRGF0ZVwiOlwiMjAyNC0wOC0xM1QyMzo0MzowMy45NDA5NTFcIn0iLCJpc3MiOiJmaXRCdWRkeSIsImp0aSI6IjIyMmM3OGEzZjIxOTJiM2I4N2ExODYyNyIsImV4cCI6MTcyMzU2MDE4MywibmJmIjoxNzIzNTYwMTgzLCJpYXQiOjE3MjQxNjQ5ODN9.ZVU03bUeoFetRQ2KPBPYMby35_3iKi8wIwmZJjLTx8o
 Content-Type: application/json;charset=UTF-8
-Content-Length: 408
+Content-Length: 366
 
 {
-  "uuid" : "c5cf0ac2-5231-11ef-b257-99d4d305d120",
-  "phone" : "01007748185",
+  "uuid" : "222c78a3f2192b3b87a18627",
+  "phone" : "01030337501",
   "nickname" : "test",
   "email" : null,
   "pushToken" : null,
   "tired" : 0,
   "sendable" : false,
-  "joinDate" : "2024-08-04T16:18:39.843445",
-  "lastModifiedDate" : "2024-08-04T16:18:39.843445",
+  "joinDate" : "2024-08-13T23:43:04.021098",
+  "lastModifiedDate" : "2024-08-13T23:43:04.021098",
   "lastSignInDate" : null,
   "buddies" : null,
-  "isNew" : true,
-  "id" : "c5cf0ac2-5231-11ef-b257-99d4d305d120",
+  "id" : "222c78a3f2192b3b87a18627",
   "new" : true
 }</code></pre>
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="User-회원가입_response_fields"><a class="link" href="#User-회원가입_response_fields">Response fields</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sendable</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">푸시 전송 가능 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>joinDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">회원 가입일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>phone</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전화번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lastModifiedDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마지막 수정일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nickname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">닉네임</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tired</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">피로도</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lastSignInDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마지막 로그인 날짜</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uuid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UUID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pushToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">푸시 토큰</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>buddies</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">버디</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">이메일</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="sect2">
-<h3 id="User-로그인"><a class="link" href="#User-로그인">User 로그인</a></h3>
+<h3 id="User-로그인"><a class="link" href="#User-로그인">로그인</a></h3>
 <div class="sect3">
 <h4 id="User-로그인_http_request"><a class="link" href="#User-로그인_http_request">HTTP request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">PATCH /v1/user/sign/in HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /v1/user/sign/in HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 500
-Host: localhost:8080
+Host: docs.api.com
 
 {
   "uuid" : null,
-  "phone" : "01011111111",
+  "phone" : "01065064710",
   "password" : "1212",
   "nickname" : null,
   "email" : null,
@@ -574,10 +716,179 @@ Host: localhost:8080
   "buddies" : null,
   "isNew" : false,
   "enabled" : true,
-  "id" : "01011111111",
+  "id" : "01065064710",
+  "authorities" : [ ],
+  "username" : "01065064710",
+  "accountNonExpired" : true,
+  "accountNonLocked" : true,
+  "credentialsNonExpired" : true
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="User-로그인_request_fields"><a class="link" href="#User-로그인_request_fields">Request fields</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">비밀번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>phone</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전화번호</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="User-로그인_http_response"><a class="link" href="#User-로그인_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Authorization: eyJ0b2tlblR5cGUiOiJBQ0NFU1MiLCJhbGciOiJIUzI1NiJ9.eyJCT0RZIjoie1wiam9pbkRhdGVcIjpcIjIwMjQtMDgtMTBUMjI6MzI6MTAuOTM0XCIsXCJsYXN0TW9kaWZpZWREYXRlXCI6XCIyMDI0LTA4LTEwVDIyOjMyOjEwLjkzNFwiLFwiaWRcIjpcIjAxMDY1MDY0NzEwXCIsXCJ1dWlkXCI6XCJlMDkwZjAyZFwifSIsImlzcyI6ImZpdEJ1ZGR5IiwianRpIjoiZTA5MGYwMmQiLCJleHAiOjE3MjMyOTY3NjMsIm5iZiI6MTcyMzI5Njc2MywiaWF0IjoxNzIzOTAxNTYzfQ.dTEb7dgIF6KY0bHwa_DKMxnn4fjiHgVR5fMyUOpqLHU
+Authorization_refresh: eyJ0b2tlblR5cGUiOiJSRUZSRVNIIiwiYWxnIjoiSFMyNTYifQ.eyJCT0RZIjoie1wiam9pbkRhdGVcIjpcIjIwMjQtMDgtMTBUMjI6MzI6MTAuOTM0XCIsXCJsYXN0TW9kaWZpZWREYXRlXCI6XCIyMDI0LTA4LTEwVDIyOjMyOjEwLjkzNFwiLFwiaWRcIjpcIjAxMDY1MDY0NzEwXCIsXCJ1dWlkXCI6XCJlMDkwZjAyZFwifSIsImlzcyI6ImZpdEJ1ZGR5IiwianRpIjoiZTA5MGYwMmQiLCJleHAiOjE3MjMyOTY3NjMsIm5iZiI6MTcyMzI5Njc2MywiaWF0IjoxNzIzOTAxNTYzfQ.P6dB6UDXyMjrM3rbszkLv9926FA8DWr8a0F0k4D4_8c
+Content-Type: application/json;charset=UTF-8
+Content-Length: 329
+
+{
+  "uuid" : "e090f02d",
+  "phone" : "01065064710",
+  "nickname" : "test",
+  "email" : null,
+  "pushToken" : null,
+  "tired" : 0,
+  "sendable" : false,
+  "joinDate" : "2024-08-10T22:32:10.934",
+  "lastModifiedDate" : "2024-08-10T22:32:10.934",
+  "lastSignInDate" : null,
+  "buddies" : null,
+  "id" : "e090f02d",
+  "new" : false
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="User-로그인_response_fields"><a class="link" href="#User-로그인_response_fields">Response fields</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sendable</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">푸시 전송 가능 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>joinDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">회원 가입일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>phone</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전화번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lastModifiedDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마지막 수정일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nickname</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">닉네임</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tired</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">피로도</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lastSignInDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마지막 로그인 날짜</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uuid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UUID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pushToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">푸시 토큰</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>buddies</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">버디</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">이메일</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="User-로그아웃"><a class="link" href="#User-로그아웃">로그아웃</a></h3>
+<div class="sect3">
+<h4 id="User-로그아웃_http_request"><a class="link" href="#User-로그아웃_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /v1/user/sign/out HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 493
+Host: docs.api.com
+
+{
+  "uuid" : "b6f51fbaabe22df58eaca01e",
+  "phone" : null,
+  "password" : null,
+  "nickname" : null,
+  "email" : null,
+  "refreshToken" : null,
+  "pushToken" : null,
+  "tired" : null,
+  "sendable" : null,
+  "joinDate" : null,
+  "lastModifiedDate" : null,
+  "lastSignInDate" : null,
+  "buddies" : null,
+  "isNew" : false,
+  "enabled" : true,
+  "id" : null,
   "credentialsNonExpired" : true,
   "authorities" : [ ],
-  "username" : "01011111111",
+  "username" : null,
   "accountNonExpired" : true,
   "accountNonLocked" : true
 }</code></pre>
@@ -585,31 +896,556 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect3">
-<h4 id="User-로그인_http_response"><a class="link" href="#User-로그인_http_response">HTTP response</a></h4>
+<h4 id="User-로그아웃_request_fields"><a class="link" href="#User-로그아웃_request_fields">Request fields</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uuid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">고유번호</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="User-로그아웃_http_response"><a class="link" href="#User-로그아웃_http_response">HTTP response</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Authorization: eyJ0b2tlblR5cGUiOiJBQ0NFU1MiLCJhbGciOiJIUzI1NiJ9.eyJCT0RZIjoie1wibGFzdE1vZGlmaWVkRGF0ZVwiOlwiMjAyNC0wOC0wNFQwOTowOToyMi4xOTlcIixcImlkXCI6XCIwMTAxMTExMTExMVwiLFwidXVpZFwiOlwiY2QwOTIyZWQtNTFmNS0xMWVmLWIwMmMtNjVlMTBiYTJjN2VmXCIsXCJqb2luRGF0ZVwiOlwiMjAyNC0wOC0wNFQwOTowOToyMi4xOTlcIn0iLCJpc3MiOiJmaXRCdWRkeSIsImp0aSI6ImNkMDkyMmVkLTUxZjUtMTFlZi1iMDJjLTY1ZTEwYmEyYzdlZiIsImV4cCI6MTcyMjc1NTkxOSwibmJmIjoxNzIyNzU1OTE5LCJpYXQiOjE3MjMzNjA3MTl9.mRBg8kd4CR5AZJdauPRJgAz9Q9N3A5nxFiq21LUOjPE
-Authorization_refresh: eyJ0b2tlblR5cGUiOiJSRUZSRVNIIiwiYWxnIjoiSFMyNTYifQ.eyJCT0RZIjoie1wibGFzdE1vZGlmaWVkRGF0ZVwiOlwiMjAyNC0wOC0wNFQwOTowOToyMi4xOTlcIixcImlkXCI6XCIwMTAxMTExMTExMVwiLFwidXVpZFwiOlwiY2QwOTIyZWQtNTFmNS0xMWVmLWIwMmMtNjVlMTBiYTJjN2VmXCIsXCJqb2luRGF0ZVwiOlwiMjAyNC0wOC0wNFQwOTowOToyMi4xOTlcIn0iLCJpc3MiOiJmaXRCdWRkeSIsImp0aSI6ImNkMDkyMmVkLTUxZjUtMTFlZi1iMDJjLTY1ZTEwYmEyYzdlZiIsImV4cCI6MTcyMjc1NTkxOSwibmJmIjoxNzIyNzU1OTE5LCJpYXQiOjE3MjMzNjA3MTl9.sMEo77a8nawI5Rxh9w-1hyOt9aFd-FlviWHb8Pl2CuE
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Authorization:
+Authorization_refresh:
 Content-Type: application/json;charset=UTF-8
-Content-Length: 407
+Content-Length: 4
+
+true</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="User-푸시_토큰_싱크"><a class="link" href="#User-푸시_토큰_싱크">푸시_토큰_싱크</a></h3>
+<div class="sect3">
+<h4 id="User-푸시_토큰_싱크_http_request"><a class="link" href="#User-푸시_토큰_싱크_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /v1/user/sync/push-token HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 506
+Host: docs.api.com
 
 {
-  "uuid" : "cd0922ed-51f5-11ef-b02c-65e10ba2c7ef",
-  "phone" : "01011111111",
-  "nickname" : "test",
+  "uuid" : "b6f51fbaabe22df58eaca01e",
+  "phone" : null,
+  "password" : null,
+  "nickname" : null,
   "email" : null,
-  "pushToken" : null,
+  "refreshToken" : null,
+  "pushToken" : "PUSH_TOKEN_TEST",
   "tired" : null,
-  "sendable" : false,
-  "joinDate" : "2024-08-04T09:09:22.199",
-  "lastModifiedDate" : "2024-08-04T09:09:22.199",
+  "sendable" : null,
+  "joinDate" : null,
+  "lastModifiedDate" : null,
   "lastSignInDate" : null,
   "buddies" : null,
   "isNew" : false,
-  "id" : "cd0922ed-51f5-11ef-b02c-65e10ba2c7ef",
+  "enabled" : true,
+  "id" : null,
+  "credentialsNonExpired" : true,
+  "authorities" : [ ],
+  "username" : null,
+  "accountNonExpired" : true,
+  "accountNonLocked" : true
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="User-푸시_토큰_싱크_request_fields"><a class="link" href="#User-푸시_토큰_싱크_request_fields">Request fields</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pushToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">푸시토큰</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uuid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">고유번호</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="User-푸시_토큰_싱크_http_response"><a class="link" href="#User-푸시_토큰_싱크_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 5
+
+false</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="User-피로도_싱크"><a class="link" href="#User-피로도_싱크">피로도_싱크</a></h3>
+<div class="sect3">
+<h4 id="User-피로도_싱크_http_request"><a class="link" href="#User-피로도_싱크_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /v1/user/sync/push-token HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 506
+Host: docs.api.com
+
+{
+  "uuid" : "b6f51fbaabe22df58eaca01e",
+  "phone" : null,
+  "password" : null,
+  "nickname" : null,
+  "email" : null,
+  "refreshToken" : null,
+  "pushToken" : "PUSH_TOKEN_TEST",
+  "tired" : null,
+  "sendable" : null,
+  "joinDate" : null,
+  "lastModifiedDate" : null,
+  "lastSignInDate" : null,
+  "buddies" : null,
+  "isNew" : false,
+  "enabled" : true,
+  "id" : null,
+  "credentialsNonExpired" : true,
+  "authorities" : [ ],
+  "username" : null,
+  "accountNonExpired" : true,
+  "accountNonLocked" : true
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="User-피로도_싱크_request_fields"><a class="link" href="#User-피로도_싱크_request_fields">Request fields</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pushToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">푸시토큰</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uuid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">고유번호</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="User-피로도_싱크_http_response"><a class="link" href="#User-피로도_싱크_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 5
+
+false</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Buddy-API"><a class="link" href="#Buddy-API">Buddy API</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="Buddy-친구_사귀기"><a class="link" href="#Buddy-친구_사귀기">친구 사귀기</a></h3>
+<div class="sect3">
+<h4 id="Buddy-친구_사귀기_http_request"><a class="link" href="#Buddy-친구_사귀기_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /v1/buddy/make-friends HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: accessToken
+Content-Length: 219
+Host: docs.api.com
+
+{
+  "uuid" : null,
+  "userUuid" : "f1fefba98c5745428a92028a",
+  "buddy" : "DUCK",
+  "isPrimary" : true,
+  "name" : "도널드",
+  "exp" : 0,
+  "action" : null,
+  "whenStart" : null,
+  "whenEnd" : null,
   "new" : false
 }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Buddy-친구_사귀기_request_headers"><a class="link" href="#Buddy-친구_사귀기_request_headers">Request headers</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">액세스 토큰</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="Buddy-친구_사귀기_http_response"><a class="link" href="#Buddy-친구_사귀기_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 252
+
+{
+  "uuid" : "175ff199940c03e648a04c53",
+  "userUuid" : "f1fefba98c5745428a92028a",
+  "buddy" : "DUCK",
+  "isPrimary" : true,
+  "name" : "도널드",
+  "exp" : 0,
+  "action" : null,
+  "whenStart" : null,
+  "whenEnd" : null,
+  "actionHistories" : null
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Buddy-내_친구들"><a class="link" href="#Buddy-내_친구들">내 친구들</a></h3>
+<div class="sect3">
+<h4 id="Buddy-내_친구들_http_request"><a class="link" href="#Buddy-내_친구들_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /v1/buddy/3a4dfec64f885529ac4ff0d2 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: accessToken
+Host: docs.api.com</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Buddy-내_친구들_request_headers"><a class="link" href="#Buddy-내_친구들_request_headers">Request headers</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">액세스 토큰</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="Buddy-내_친구들_path_parameters"><a class="link" href="#Buddy-내_친구들_path_parameters">Path parameters</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /v1/buddy/{userUuid}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userUuid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사용자 UUID</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="Buddy-내_친구들_http_response"><a class="link" href="#Buddy-내_친구들_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 518
+
+[ {
+  "uuid" : "e72cbaa4b1a4ed562486bae3",
+  "userUuid" : "3a4dfec64f885529ac4ff0d2",
+  "buddy" : "DUCK",
+  "isPrimary" : true,
+  "name" : "도널드",
+  "exp" : 501,
+  "action" : null,
+  "whenStart" : null,
+  "whenEnd" : null,
+  "actionHistories" : null
+}, {
+  "uuid" : "a70816c820f507a9d44dae19",
+  "userUuid" : "3a4dfec64f885529ac4ff0d2",
+  "buddy" : "CHICKEN",
+  "isPrimary" : false,
+  "name" : "도널드",
+  "exp" : 100,
+  "action" : null,
+  "whenStart" : null,
+  "whenEnd" : null,
+  "actionHistories" : null
+} ]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Buddy-경험치_조정"><a class="link" href="#Buddy-경험치_조정">경험치 조정</a></h3>
+<div class="sect3">
+<h4 id="Buddy-경험치_조정_http_request"><a class="link" href="#Buddy-경험치_조정_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /v1/buddy/earn-exp HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: ACCESS TOKEN
+Content-Length: 212
+Host: docs.api.com
+
+{
+  "uuid" : "e72cbaa4b1a4ed562486bae3",
+  "userUuid" : null,
+  "buddy" : null,
+  "isPrimary" : true,
+  "name" : null,
+  "exp" : 100,
+  "action" : null,
+  "whenStart" : null,
+  "whenEnd" : null,
+  "new" : false
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Buddy-경험치_조정_request_headers"><a class="link" href="#Buddy-경험치_조정_request_headers">Request headers</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">액세스 토큰</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="Buddy-경험치_조정_http_response"><a class="link" href="#Buddy-경험치_조정_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 4
+
+true</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Buddy-메인_버디_설정"><a class="link" href="#Buddy-메인_버디_설정">메인 버디 설정</a></h3>
+<div class="sect3">
+<h4 id="Buddy-메인_버디_설정_http_request"><a class="link" href="#Buddy-메인_버디_설정_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /v1/buddy/see-ya HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: AccessToken
+Content-Length: 232
+Host: docs.api.com
+
+{
+  "uuid" : "e72cbaa4b1a4ed562486bae3",
+  "userUuid" : "3a4dfec64f885529ac4ff0d2",
+  "buddy" : null,
+  "isPrimary" : true,
+  "name" : null,
+  "exp" : 0,
+  "action" : null,
+  "whenStart" : null,
+  "whenEnd" : null,
+  "new" : false
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Buddy-메인_버디_설정_request_headers"><a class="link" href="#Buddy-메인_버디_설정_request_headers">Request headers</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">액세스 토큰</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="Buddy-메인_버디_설정_http_response"><a class="link" href="#Buddy-메인_버디_설정_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 5
+
+false</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Buddy-버디_도감"><a class="link" href="#Buddy-버디_도감">버디 도감</a></h3>
+<div class="sect3">
+<h4 id="Buddy-버디_도감_http_request"><a class="link" href="#Buddy-버디_도감_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /v1/buddy/3a4dfec64f885529ac4ff0d2/dictionary HTTP/1.1
+Authorization: AccessToken
+Host: docs.api.com</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Buddy-버디_도감_request_headers"><a class="link" href="#Buddy-버디_도감_request_headers">Request headers</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">액세스 토큰</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="Buddy-버디_도감_path_parameters"><a class="link" href="#Buddy-버디_도감_path_parameters">Path parameters</a></h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /v1/buddy/{userUuid}/dictionary</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userUuid</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사용자 Uuid</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="Buddy-버디_도감_http_response"><a class="link" href="#Buddy-버디_도감_http_response">HTTP response</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 21
+
+[ "CHICKEN", "DUCK" ]</code></pre>
 </div>
 </div>
 </div>
@@ -620,8 +1456,15 @@ Content-Length: 407
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2024-08-04 15:19:28 +0900
+Last updated 2024-08-13 23:48:40 +0900
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>

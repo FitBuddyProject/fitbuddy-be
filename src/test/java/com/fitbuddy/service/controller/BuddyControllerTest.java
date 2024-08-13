@@ -24,6 +24,7 @@ import java.util.Map;
 
 import static com.fitbuddy.service.config.RestDocument.*;
 import static com.fitbuddy.service.config.enumerations.Buddy.DUCK;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -348,7 +349,7 @@ public class BuddyControllerTest {
     @Nested
     @DisplayName(value = "메인 버디 설정")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-    class changePrimaryBuddy{
+    class ChangePrimaryBuddy{
         private final String url = prefix+"/see-ya";
         MyBuddyDto buddyDto;
         @BeforeAll
@@ -418,5 +419,34 @@ public class BuddyControllerTest {
         }
     }
 
+
+    @Nested
+    @DisplayName(value = "도감")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    class Dictionary {
+        private String url = prefix+"/{userUuid}/dictionary";
+        private String userUuid = "3a4dfec64f885529ac4ff0d2";
+
+        @Test
+        @DisplayName("성공")
+        void success () throws Exception {
+            mockMvc.perform(
+                get(url, userUuid)
+                .header(HttpHeaders.AUTHORIZATION, "AccessToken")
+            )
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$[*]", containsInAnyOrder("CHICKEN", "DUCK")))
+            .andDo(print())
+            .andDo(RestDocument.build("버디 도감")
+                    .pathSnippet(simplePathParameters(Map.of("userUuid", "사용자 Uuid")))
+                    .headersSnippet(simpleHeaders(Map.of(HttpHeaders.AUTHORIZATION, "액세스 토큰")))
+                    .rsSnippet(simpleResponseFields( Map.of("[]", "버디 종류")))
+                    .build()
+            );
+        }
+
+
+    }
 //    "uuid":"e72cbaa4b1a4ed562486bae3","userUuid":"3a4dfec64f885529ac4ff0d2","buddy":"DUCK","isPrimary":true,"name":"도널드","exp":0,
 }

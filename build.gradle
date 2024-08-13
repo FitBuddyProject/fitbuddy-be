@@ -96,8 +96,8 @@ ext {
 }
 test {
     // 위에서 작성한 snippetsDir 디렉토리를 test의 output으로 구성하는 설정 -> 스니펫 조각들이 build/generated-snippets로 출력
-    outputs.dir snippetsDir
     useJUnitPlatform()
+    outputs.dir snippetsDir
 }
 
 // asciidoctor 설정
@@ -122,8 +122,14 @@ asciidoctor.doFirst {
     delete file('src/main/resources/static/docs')
 }
 
+tasks.resolveMainClassName {
+    dependsOn 'copyDocument'
+}
+
+
 // asccidoctor 작업 이후 생성된 HTML 파일을 static/docs 로 copy
 task copyDocument(type: Copy) {
+    dependsOn processResources
     dependsOn asciidoctor
     from file("build/docs/asciidoc")
     into file("src/main/resources/static/docs")
@@ -134,6 +140,10 @@ build {
     dependsOn copyDocument
 }
 
+jar {
+    enabled = false
+}
+
 //build의 bootJar 시 asciidoctor에 의존하여 /static/docs에 index.html이 생성된다.
 bootJar {
     dependsOn asciidoctor
@@ -141,3 +151,7 @@ bootJar {
         into 'static/docs'
     }
 }
+
+//build {
+//    dependsOn copyDocument
+//}
