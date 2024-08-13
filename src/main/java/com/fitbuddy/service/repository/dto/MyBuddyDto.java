@@ -16,18 +16,16 @@ public class MyBuddyDto {
 
     @NotEmpty(message = "UUID는 필수 입니다.", groups = {EarnExp.class, ChangePrimary.class})
     private String uuid;
-    @NotEmpty(message = "사용자 고유 값은 필수입니다.", groups = {MakeFriends.class})
+    @NotEmpty(message = "사용자 고유 값은 필수입니다.", groups = {MakeFriends.class, ChangePrimary.class})
     private String userUuid;
     @NotNull(message = "Buddy 타입을 확인하세요.", groups = {MakeFriends.class})
     private Buddy buddy;
-    @NotEmpty(message = "primary 여부를 선택해주세요.", groups = {ChangePrimary.class})
     private Boolean isPrimary = true;
-    @NotNull(message = "Buddy 타입을 확인하세요.", groups = {MakeFriends.class})
+    @NotEmpty(message = "Buddy 이름을 지어주세요.", groups = {MakeFriends.class})
     private String name;
-    @Min( value = 0, message = "경험치는 0이 최소 입니다.", groups = {EarnExp.class})
-    @NotEmpty(message = "피로도는 필수입니다.", groups = {EarnExp.class})
+    @Min( value = 1, message = "경험치는 1이 최소 입니다.", groups = {EarnExp.class})
+    @NotNull(message = "경험치는 필수입니다.", groups = {EarnExp.class})
     private Long exp = 0L;
-
 
     private Action action;
     private LocalDateTime whenStart;
