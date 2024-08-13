@@ -10,7 +10,7 @@
 
 [[User-회원_인증번호_발송]]
 ===  회원 인증번호 발송
-operation::인증번호 발송[snippets='http-request,http-response']
+operation::인증번호 발송[snippets='http-request,path-parameters,http-response']
 
 [[User-회원가입]]
 ===  회원가입
@@ -33,3 +33,30 @@ operation::푸시 토큰 싱크[snippets='http-request,request-fields,http-respo
 [[User-피로도_싱크]]
 ===  피로도_싱크
 operation::푸시 토큰 싱크[snippets='http-request,request-fields,http-response']
+
+
+
+
+
+[[Buddy-API]]
+== Buddy API
+
+
+[[Buddy-친구_사귀기]]
+===  친구 사귀기
+operation::친구 사귀기[snippets='http-request,request-headers,path-parameters,http-response']
+
+
+
+[[Buddy-내_친구들]]
+===  내 친구들
+operation::내 친구들[snippets='http-request,request-headers,path-parameters,http-response']
+
+[[Buddy-경험치_조정]]
+===  경험치 조정
+operation::경험치 조정[snippets='http-request,request-headers,path-parameters,http-response']
+
+[[Buddy-메인_버디_설정]]
+===  메인 버디 설정
+operation::메인 버디 설정[snippets='http-request,request-headers,http-response']
+
