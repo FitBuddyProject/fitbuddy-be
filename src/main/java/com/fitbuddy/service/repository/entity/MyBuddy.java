@@ -1,7 +1,6 @@
 package com.fitbuddy.service.repository.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fitbuddy.service.config.enumerations.Action;
 import com.fitbuddy.service.config.enumerations.Buddy;
 import lombok.Getter;
 import lombok.ToString;
@@ -38,7 +37,7 @@ public class MyBuddy  implements Persistable {
 
 
     @Field(name = "action")
-    private Action action;
+    private com.fitbuddy.service.config.enumerations.Action action;
     @Field(name = "whenStart", targetType = FieldType.DATE_TIME)
     private LocalDateTime whenStart;
     @Field(name = "whenEnd", targetType = FieldType.DATE_TIME)
@@ -48,7 +47,7 @@ public class MyBuddy  implements Persistable {
     private boolean isNew;
 
     @DBRef
-    private List<ActionHistory> actionHistories;
+    private List<Action> actionHistories;
 
     @Override
     public Object getId() {
