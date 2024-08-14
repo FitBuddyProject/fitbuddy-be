@@ -24,7 +24,7 @@ import static com.fitbuddy.service.etc.validations.User.*;
 @Data
 @EqualsAndHashCode(of = {"uuid", "phone"})
 public class UserDto implements JwtEncryptable {
-    @NotEmpty(message = "로그아웃 시 UUID는 필수입니다.", groups = {SignOut.class, SyncPushToken.class, SyncTired.class})
+    @NotEmpty(message = "로그아웃 시 UUID는 필수입니다.", groups = {SignOut.class, SyncPushToken.class, SyncTired.class, Sendable.class})
     private String uuid;
     @NotEmpty(message = "전화번호는 필수입니다.", groups = {SignUp.class})
     private String phone;
@@ -40,7 +40,7 @@ public class UserDto implements JwtEncryptable {
     @Min(message = "피로도는 0이 최소 값입니다.", value = 0, groups = {SyncTired.class} )
     @Max(message = "피로도는 100이 최대 값입니다.", value = 100, groups = {SyncTired.class} )
     private Long tired;
-    @Setter
+    @NotNull(message = "상태 값을 지정하세요", groups = {Sendable.class})
     private Boolean sendable;
     @Setter(AccessLevel.PRIVATE)
     private LocalDateTime joinDate;

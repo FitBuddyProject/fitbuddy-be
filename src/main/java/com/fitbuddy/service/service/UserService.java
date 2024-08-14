@@ -101,4 +101,6 @@ public class UserService {
 
     public Boolean syncTired(UserDto user) {return template.syncTired(user);
     }
+
+    public Boolean sendable(UserDto user) {return template.sendable(user);}
 }

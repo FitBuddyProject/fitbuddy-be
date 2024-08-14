@@ -50,4 +50,10 @@ public class UserTemplate {
         Update update = Update.update("tired", user.getTired());
         return mongoTemplate.updateFirst(query, update, User.class).getModifiedCount() > 0L;
     }
+
+    public Boolean sendable(UserDto user) {
+        Query query = Query.query(Criteria.where("_id").is(new ObjectId(user.getUuid())));
+        Update update = Update.update("sendable", user.getSendable());
+        return mongoTemplate.updateFirst(query, update, User.class).getModifiedCount() > 0L;
+    }
 }

@@ -47,4 +47,9 @@ public class UserController {
     public ResponseEntity syncTired(@Validated(value = {SyncTired.class}) @RequestBody UserDto user) {
         return ResponseEntity.ok(service.syncTired(user));
     }
+
+    @PatchMapping(value = "/sendable")
+    public ResponseEntity sendable(@Validated(value = {Sendable.class}) @RequestBody UserDto user) {
+        return ResponseEntity.ok(service.sendable(user));
+    }
 }
