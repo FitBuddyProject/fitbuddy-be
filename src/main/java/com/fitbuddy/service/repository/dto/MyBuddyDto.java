@@ -1,6 +1,6 @@
 package com.fitbuddy.service.repository.dto;
 
-import com.fitbuddy.service.config.enumerations.Action;
+import com.fitbuddy.service.config.enumerations.Act;
 import com.fitbuddy.service.config.enumerations.Buddy;
 import com.fitbuddy.service.etc.uuid.Uuid;
 import jakarta.validation.constraints.Min;
@@ -27,7 +27,7 @@ public class MyBuddyDto {
     @NotNull(message = "경험치는 필수입니다.", groups = {EarnExp.class})
     private Long exp = 0L;
 
-    private Action action;
+    private Act action;
     private LocalDateTime whenStart;
     private LocalDateTime whenEnd;
 

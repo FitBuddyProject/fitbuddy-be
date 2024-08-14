@@ -25,11 +25,15 @@ operation::로그인[snippets='http-request,request-fields,http-response,respons
 operation::로그아웃[snippets='http-request,request-fields,http-response']
 
 [[User-푸시_토큰_싱크]]
-===  푸시_토큰_싱크
+===  푸시 토큰 싱크
 operation::푸시 토큰 싱크[snippets='http-request,request-fields,http-response']
 
+[[User-푸시_상태_변경]]
+===  푸시 상태 변경
+operation::푸시 상태 변경[snippets='http-request,request-headers,request-fields,http-response']
+
 [[User-피로도_싱크]]
-===  피로도_싱크
+===  피로도 싱크
 operation::푸시 토큰 싱크[snippets='http-request,request-fields,http-response']
 
 
