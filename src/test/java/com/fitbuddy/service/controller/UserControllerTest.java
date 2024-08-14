@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
@@ -357,6 +358,48 @@ public class UserControllerTest {
                             ).build()
 
                     );
+        }
+    }
+
+
+    @Nested
+    @DisplayName("푸시 상태 변경 테스트")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    public class SendableTest {
+        private final String url = "/sendable";
+        UserDto userDto;
+
+        @BeforeAll
+        public void setup() {
+            userDto = new UserDto();
+            userDto.setUuid("b6f51fbaabe22df58eaca01e");
+            userDto.setSendable(Boolean.FALSE);
+        }
+
+        @Test
+        @DisplayName("성공")
+        void success () throws Exception {
+
+            String json = objectMapper.writeValueAsString(userDto);
+            mockMvc.perform(
+                patch(prefix+url)
+                    .header(HttpHeaders.AUTHORIZATION, "AccessToken")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(json)
+            )
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$").isBoolean())
+            .andDo(print())
+            .andDo(RestDocument.build("푸시 상태 변경")
+                    .headersSnippet(simpleHeaders(Map.of(
+                            HttpHeaders.AUTHORIZATION, "액세스토큰"
+                    )))
+                    .rqSnippet(simpleRequestFields(Map.of(
+                            "uuid", "사용자 UUID",
+                            "sendable", "푸시 전송 상태"
+                    )))
+                    .build()
+            );
         }
     }
 }
