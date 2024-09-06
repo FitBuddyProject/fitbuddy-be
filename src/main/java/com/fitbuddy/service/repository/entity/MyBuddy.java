@@ -31,7 +31,7 @@ public class MyBuddy  implements Persistable {
     private Buddy buddy;
     @Field(name = "isPrimary", targetType = FieldType.BOOLEAN)
     private Boolean isPrimary;
-    @Field(name = "name", targetType = FieldType.SCRIPT)
+    @Field(name = "name", targetType = FieldType.STRING)
     private String name;
     @Field(name = "exp", targetType = FieldType.INT64)
     private Long exp;
