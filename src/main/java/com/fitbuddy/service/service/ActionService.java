@@ -34,18 +34,46 @@ public class ActionService {
         return template.histories(request);
     }
 
+
     public Boolean doAction(ActionDto actionDto) {
 
         ActionDto beforeInsert = actionDto.beforeInsert();
         Action action = mapper.map(beforeInsert, Action.class);
 
         template.saveAction(action);
-        if(Objects.nonNull(actionDto.getAthlete())) {
-            AthleteDto athleteBeforeInsert = actionDto.getAthlete().beforeInsert(beforeInsert.getUuid());
+
+
+        this.startFriendStatus(actionDto);
+        this.doAthlete(actionDto.getAthlete(), action.getUuid());
+        return Boolean.TRUE;
+    }
+
+    private void  doAthlete(AthleteDto athleteDto, String uuid) {
+        if(Objects.nonNull(athleteDto)) {
+            AthleteDto athleteBeforeInsert = athleteDto.beforeInsert(uuid);
             Athlete athlete = mapper.map(athleteBeforeInsert, Athlete.class);
             template.saveAthlete(athlete);
         }
+    }
 
+    private void startFriendStatus(ActionDto actionDto) {
+        template.startFriendStatus( actionDto );
+    }
+
+
+    public Boolean doneAction(ActionDto actionDto) {
+        template.doneAction(actionDto.getUuid());
+        this.doneFriendStatus(actionDto);
+        return Boolean.TRUE;
+    }
+
+    private void doneFriendStatus( ActionDto actionDto ) {
+        template.doneFriendStatus(actionDto);
+    }
+
+    public Boolean cancelAction(ActionDto actionDto) {
+        template.cancelAction(actionDto.getUuid());
+        this.doneFriendStatus(actionDto);
         return Boolean.TRUE;
     }
 }

@@ -27,6 +27,7 @@ public class ActionDto {
         if(!StringUtils.hasText(this.uuid)){
             this.uuid = Uuid.generate();
             isNew = Boolean.TRUE;
+            this.actionStatus = ActionStatus.ON_GOING;
         }
         return this;
     }

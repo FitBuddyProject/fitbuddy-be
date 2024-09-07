@@ -26,13 +26,20 @@ public class ActionController {
         return ResponseEntity.ok(service.detail(uuid));
     }
 
-    @PostMapping
+    @PostMapping(value = "/start")
     public ResponseEntity doAction(@RequestBody ActionDto actionDto) {
         return ResponseEntity.ok(service.doAction(actionDto));
     }
 
+    @PatchMapping(value = "/done")
+    public ResponseEntity doneAction(@RequestBody ActionDto actionDto) {
+        return ResponseEntity.ok(service.doneAction(actionDto));
+    }
+
+
+    @DeleteMapping(value = "/cancel")
     public ResponseEntity cancelAction(@RequestBody ActionDto actionDto) {
-        return null;
+        return ResponseEntity.ok(service.cancelAction(actionDto));
     }
 
     @GetMapping(value = "/histories")

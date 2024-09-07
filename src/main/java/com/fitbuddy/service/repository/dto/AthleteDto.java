@@ -1,9 +1,7 @@
 package com.fitbuddy.service.repository.dto;
 
 import com.fitbuddy.service.config.enumerations.Intensity;
-import com.fitbuddy.service.etc.uuid.Uuid;
 import lombok.Data;
-import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.util.StringUtils;
 
 @Data
