@@ -6,3 +6,4 @@ de:
         storage:
           oplog-size: 0
         database-dir: src/test/resources/mongo
+debug: true

@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -21,12 +22,11 @@ import java.util.Objects;
 import static com.fitbuddy.service.config.constants.Constants.AUTHORIZATION;
 import static com.fitbuddy.service.config.constants.Constants.BEARER_PREFIX;
 @RequiredArgsConstructor
+@Slf4j
 public class JwtFilter extends OncePerRequestFilter {
     private final TokenProvider tokenProvider;
     private final Properties properties;
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
-
-
 
 
     @Override
@@ -59,6 +59,7 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     private Boolean isByPass ( String path ) {
+        log.error("??? {}", properties.getIgnoreJwt());
         return properties.getIgnoreJwt().stream()
                   .filter(ignore -> antPathMatcher.match(ignore, path))
                   .count() > 0;

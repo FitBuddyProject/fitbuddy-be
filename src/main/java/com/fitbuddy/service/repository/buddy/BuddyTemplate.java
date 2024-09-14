@@ -45,7 +45,7 @@ public class BuddyTemplate {
         mongoTemplate.updateMulti(
                 Query.query(
                         Criteria.where("user_id").is(userUuid)
-                                .and("_id").not().is(new ObjectId(buddy.getUuid()))
+                                .and("_id").ne(new ObjectId(buddy.getUuid()))
                 ),
                 Update.update("isPrimary", Boolean.FALSE),
                 MyBuddy.class
