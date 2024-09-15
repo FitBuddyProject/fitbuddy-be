@@ -5,3 +5,24 @@ spring:
     activate:
       on-profile: local
     import: optional:configserver:http://newkayak.iptime.org:8888
+
+springdoc:
+  swagger-ui:
+    path: /fitbuddy/swagger.html
+    tags-sorter: alpha
+    disable-swagger-default-url: true
+    display-request-duration: true
+    display-operation-id: false
+    operations-sorter: alpha
+    enabled: true
+  packages-to-scan:
+    - "com.fitbuddy.service.controller"
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  enable-javadoc: true
+  show-actuator: true
+
+swagger:
+  title: fitbuddy
+  description: fitbuddy APIs
+  version: 1.0
