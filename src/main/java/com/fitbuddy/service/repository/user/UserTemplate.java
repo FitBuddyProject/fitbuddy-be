@@ -31,6 +31,7 @@ public class UserTemplate {
     }
 
     public Boolean syncUser(String uuid, String refreshToken, String pushToken) {
+
         Query query = Query.query(Criteria.where("_id").is(new ObjectId(uuid)));
         Update update = Update.update("pushToken", pushToken)
                               .set("refreshToken", refreshToken)

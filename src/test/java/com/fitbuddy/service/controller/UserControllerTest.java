@@ -106,7 +106,7 @@ public class UserControllerTest {
         public void setup() {
             userDto = new UserDto();
             userDto.setPhone(randomPhone());
-            userDto.setPassword("1212");
+//            userDto.setPassword("1212");
             userDto.setNickname("test");
         }
 
@@ -114,7 +114,7 @@ public class UserControllerTest {
         @DisplayName(value = "회원 전화 번호 미입력")
         public void failurePhoneEmpty() throws Exception {
             userDto = new UserDto();
-            userDto.setPassword("1212");
+//            userDto.setPassword("1212");
             userDto.setNickname("test");
             String bodyJson = objectMapper.writeValueAsString(userDto);
             mockMvc.perform(post(prefix + url).contentType(MediaType.APPLICATION_JSON).content(bodyJson)).andExpect(status().is5xxServerError()).andDo(print());
@@ -182,7 +182,7 @@ public class UserControllerTest {
         public void setup() {
             userDto = new UserDto();
             userDto.setPhone("01015677586");
-            userDto.setPassword("1212");
+//            userDto.setPassword("1212");
         }
 
 
@@ -237,7 +237,7 @@ public class UserControllerTest {
         @Test
         @DisplayName(value = "로그인 실패 - 비밀번호 틀림")
         public void failure_PWD() throws Exception {
-            userDto.setPassword("1111");
+//            userDto.setPassword("1111");
             String bodyJson = objectMapper.writeValueAsString(userDto);
             mockMvc.perform(patch(prefix + url).contentType(MediaType.APPLICATION_JSON).content(bodyJson)).andExpect(status().is5xxServerError()).andExpect(jsonPath("$").isString()).andExpect(jsonPath("$").value("아이디 혹은 비밀번호를 확인해주세요.")).andDo(print());
         }

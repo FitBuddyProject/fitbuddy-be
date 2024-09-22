@@ -85,7 +85,7 @@ public class UserServiceTest {
 
             UserDto userDto = new UserDto();
             userDto.setPhone(phone);
-            userDto.setPassword(password);
+//            userDto.setPassword(password);
             userDto.setNickname(nickname);
             userDto.setEmail(email);
             userDto.beforeGenerateRefresh();
@@ -132,7 +132,7 @@ public class UserServiceTest {
 
             UserDto userDto = new UserDto();
             userDto.setPhone(phone);
-            userDto.setPassword(password);
+//            userDto.setPassword(password);
             userDto.setNickname(nickname);
             userDto.setEmail(email);
             HttpServletResponse response = new MockHttpServletResponse();
@@ -171,7 +171,7 @@ public class UserServiceTest {
             String password = "password";
             UserDto userDto = new UserDto();
             userDto.setPhone(phone);
-            userDto.setPassword(password);
+//            userDto.setPassword(password);
 
             doReturn(Optional.of(mapper.map(userDto, User.class))).when(repository).findUserByPhone(phone);
 
@@ -192,7 +192,7 @@ public class UserServiceTest {
             String refresh = "REFRESH";
             UserDto userDto = new UserDto();
             userDto.setPhone(phone);
-            userDto.setPassword(password);
+//            userDto.setPassword(password);
 
             User user = mapper.map(userDto, User.class);
             user.setUuid(uuid);

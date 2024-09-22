@@ -28,8 +28,10 @@ public class UserDto implements JwtEncryptable {
     private String uuid;
     @NotEmpty(message = "전화번호는 필수입니다.", groups = {SignUp.class})
     private String phone;
+
 //    @NotEmpty(message = "비밀번호는 필수입니다.", groups = {SignUp.class, SignIn.class})
 //    private String password;
+
     @NotEmpty(message = "닉네임은 필수입니다.", groups = {SignUp.class})
     private String nickname;
     private String email;
@@ -82,9 +84,8 @@ public class UserDto implements JwtEncryptable {
 
     @Override
     public String getPassword() {
-        return "";
+        return null;
     }
-
     @Override
     public String getUsername() {
         return this.phone;
@@ -111,12 +112,10 @@ public class UserDto implements JwtEncryptable {
     public void decodeUUID() {
         this.uuid.replaceAll("+", "-");
     }
-
     @Override
     public void encodeUUID() {
         this.uuid.replaceAll("-", "+");
     }
-
     @Override
     public String getId() {
         return this.phone;
