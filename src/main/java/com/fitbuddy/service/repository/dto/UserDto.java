@@ -28,8 +28,8 @@ public class UserDto implements JwtEncryptable {
     private String uuid;
     @NotEmpty(message = "전화번호는 필수입니다.", groups = {SignUp.class})
     private String phone;
-    @NotEmpty(message = "비밀번호는 필수입니다.", groups = {SignUp.class, SignIn.class})
-    private String password;
+//    @NotEmpty(message = "비밀번호는 필수입니다.", groups = {SignUp.class, SignIn.class})
+//    private String password;
     @NotEmpty(message = "닉네임은 필수입니다.", groups = {SignUp.class})
     private String nickname;
     private String email;
@@ -67,7 +67,7 @@ public class UserDto implements JwtEncryptable {
         return this;
     }
     public UserDto beforeInsert (BCryptPasswordEncoder encoder, String refreshToken) {
-        this.password = encoder.encode(this.password);
+//        this.password = encoder.encode(this.password);
         this.refreshToken = refreshToken;
 
         return this;
@@ -79,6 +79,12 @@ public class UserDto implements JwtEncryptable {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
     }
+
+    @Override
+    public String getPassword() {
+        return "";
+    }
+
     @Override
     public String getUsername() {
         return this.phone;

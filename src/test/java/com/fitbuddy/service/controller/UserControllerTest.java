@@ -145,7 +145,7 @@ public class UserControllerTest {
                     .andDo(RestDocument.build("회원가입")
                                         .rqSnippet(simpleRequestFields(Map.of(
                                                 "phone","전화번호",
-                                                "password","비밀번호",
+//                                                "password","비밀번호",
                                                 "nickname","닉네임"
                                         )))
                                         .rsSnippet(

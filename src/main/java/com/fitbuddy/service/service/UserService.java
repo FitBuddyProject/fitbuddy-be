@@ -59,6 +59,7 @@ public class UserService {
 
 
         dto.beforeGenerateRefresh();
+//        dto.setPassword(bcrypt.encode(dto.getPassword()));
         String refresh = tokenProvider.encrypt(dto, Boolean.FALSE);
         String access = tokenProvider.encrypt(dto, Boolean.TRUE);
         User user = mapper.map(dto.beforeInsert(bcrypt, refresh), User.class);
@@ -75,7 +76,7 @@ public class UserService {
         Optional<User> find = repository.findUserByPhone(userDto.getPhone());
         User user = find.orElseThrow(() -> new IllegalArgumentException("아이디 혹은 비밀번호를 확인해주세요."));
 
-        if( !bcrypt.matches( userDto.getPassword(), user.getPassword() ) ) throw new IllegalArgumentException("아이디 혹은 비밀번호를 확인해주세요.");
+//        if( !bcrypt.matches( userDto.getPassword(), user.getPassword() ) ) throw new IllegalArgumentException("아이디 혹은 비밀번호를 확인해주세요.");
 
         UserDto dto = mapper.map(user, UserDto.class);
         String refresh = tokenProvider.encrypt(dto, Boolean.FALSE);
