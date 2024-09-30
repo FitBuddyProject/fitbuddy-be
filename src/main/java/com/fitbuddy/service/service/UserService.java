@@ -37,7 +37,7 @@ public class UserService {
     private String generateCode() {
         return IntStream
                 .generate(() -> new SecureRandom().nextInt(10))
-                .limit(8)
+                .limit(6)
                 .boxed()
                 .collect(StringBuffer::new, StringBuffer::append, StringBuffer::append).toString();
     }
