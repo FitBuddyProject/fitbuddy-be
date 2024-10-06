@@ -1,0 +1,17 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+    mappings:
+      enable: true
+    logfile:
+      enable: true
+    httpexchanges:
+      enabled: true
+    refresh:
+      enabled: true
+

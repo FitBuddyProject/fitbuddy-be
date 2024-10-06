@@ -1,0 +1,9 @@
+security:
+  ignore-jwt:
+    - '/v1/user/sign/*'
+    - '/v1/user/verify/*'
+    - '/v1/user/sync/*'
+    - '/v1/buddy/**/*'
+    - '/v1/buddy/*'
+  ignore-xss:
+    - '/'

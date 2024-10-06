@@ -1,0 +1,23 @@
+spring:
+  config:
+    activate:
+      on-profile: junit
+    import:
+      - classpath:config/actuator.yaml
+      - classpath:config/data.yaml
+      - classpath:config/path.yaml
+      - classpath:config/security.yaml
+      - classpath:config/mongo.yaml
+      - classpath:config/redis.yaml
+      - classpath:config/server.yaml
+
+
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              MongoTemplate: DEBUG

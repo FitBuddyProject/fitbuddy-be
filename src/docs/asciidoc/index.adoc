@@ -1,0 +1,66 @@
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[User-API]]
+== User API
+
+[[User-회원_인증번호_발송]]
+===  회원 인증번호 발송
+operation::인증번호 발송[snippets='http-request,path-parameters,http-response']
+
+[[User-회원가입]]
+===  회원가입
+operation::회원가입[snippets='http-request,request-fields,http-response,response-fields']
+
+[[User-로그인]]
+===  로그인
+operation::로그인[snippets='http-request,request-fields,http-response,response-fields']
+
+[[User-로그아웃]]
+===  로그아웃
+operation::로그아웃[snippets='http-request,request-fields,http-response']
+
+[[User-푸시_토큰_싱크]]
+===  푸시 토큰 싱크
+operation::푸시 토큰 싱크[snippets='http-request,request-fields,http-response']
+
+[[User-푸시_상태_변경]]
+===  푸시 상태 변경
+operation::푸시 상태 변경[snippets='http-request,request-headers,request-fields,http-response']
+
+[[User-피로도_싱크]]
+===  피로도 싱크(사용자 피로도 조정)
+operation::푸시 토큰 싱크[snippets='http-request,request-fields,http-response']
+
+
+
+
+
+[[Buddy-API]]
+== Buddy API
+
+[[Buddy-친구_사귀기]]
+===  친구 사귀기 ( 버디 추가 )
+
+operation::친구 사귀기[snippets='http-request,request-headers,http-response']
+
+[[Buddy-내_친구들]]
+===  내 친구들 (버디 들)
+operation::내 친구들[snippets='http-request,request-headers,path-parameters,http-response']
+
+[[Buddy-경험치_조정]]
+===  경험치 조정(버디 경험치 조정)
+operation::경험치 조정[snippets='http-request,request-headers,http-response']
+
+[[Buddy-메인_버디_설정]]
+===  메인 버디 설정(메인화면에 내놓을 버디 변경)
+operation::메인 버디 설정[snippets='http-request,request-headers,http-response']
+
+[[Buddy-버디_도감]]
+===  버디 도감(지금까지 모은 버디 종류 열람)
+operation::버디 도감[snippets='http-request,request-headers,path-parameters,http-response']
+
