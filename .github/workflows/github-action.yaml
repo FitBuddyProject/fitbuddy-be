@@ -24,7 +24,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build
-        run: ./gradlew -x test build
+        run: ./gradlew build -x test -x asciidoctor
 
 
   deploy-phase:
