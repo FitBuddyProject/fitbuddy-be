@@ -1,7 +1,7 @@
 name: fitbuddy-be
 on:
-  merge:
-    merge: ["master"]
+  pull_request:
+    branches: ["master"]
 
   jobs:
     build-phase:
