@@ -99,3 +99,10 @@
 > --restart always \
 > redis:7.4-rc2
 > ```
+
+
+## Issue
+
+1. GitAction 적용
+2. AWS 설정
+3. 
