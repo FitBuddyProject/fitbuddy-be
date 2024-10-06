@@ -1,5 +1,7 @@
 # FitBuddy
 
+[![fitbuddy-be](https://github.com/FitBuddyProject/fitbuddy-be/actions/workflows/github-action.yaml/badge.svg)](https://github.com/FitBuddyProject/fitbuddy-be/actions/workflows/github-action.yaml)
+
 ## stack 
 
 - Spring 3.2.8
