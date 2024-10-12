@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class TokenProvider {
     private final ObjectMapper objectMapper;
 
@@ -46,9 +48,9 @@ public class TokenProvider {
                        .setIssuer("fitBuddy")
                        .setHeader(header)
                        .setId(target.getUuid())
-                       .setExpiration(dateNow)
+                       .setExpiration(dateSevenDaysAfter)
                        .setNotBefore(dateNow)
-                       .setIssuedAt(dateSevenDaysAfter)
+                       .setIssuedAt(dateNow)
                        .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                        .compact();
         } catch (JsonProcessingException e) {
@@ -59,7 +61,8 @@ public class TokenProvider {
 
 
     public <T extends JwtEncryptable> Authentication decrypt(String token, Class<T> classType) {
-        Jwt result =  Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJwt(token);
+        Jwt result =  Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parse(token);
+        log.error("RESULT {}", result);
         Map<String, String> body = (Map<String, String>) result.getBody();
         String json = body.get("BODY");
         try {
