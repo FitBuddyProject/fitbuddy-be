@@ -44,7 +44,7 @@ public class ActionTemplate {
     public List<Action> histories(ActionRequest request) {
         Criteria criteria = Criteria.where("userUuid").is(request.getUserUuid())
                 .and("start").gte(request.getStartDate().atStartOfDay())
-                .and("start").lte(request.getEndDate().plusDays(1).atStartOfDay().minusNanos(1));
+                .and("end").lte(request.getEndDate().plusDays(1).atStartOfDay().minusNanos(1));
 
 
         if(Objects.nonNull(request.getLastKey())) criteria.and("uuid").gt(new ObjectId(request.getLastKey()));
