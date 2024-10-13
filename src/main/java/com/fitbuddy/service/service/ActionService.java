@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 @Slf4j
 public class ActionService {
