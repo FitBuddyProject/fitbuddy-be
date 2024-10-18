@@ -4,6 +4,8 @@ import com.fitbuddy.service.config.enumerations.Intensity;
 import lombok.Data;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
+
 @Data
 public class AthleteDto {
     private String uuid;
@@ -12,6 +14,7 @@ public class AthleteDto {
     private Intensity intensity;
     private int duration;
     private String diary;
+    private LocalDate date;
 
     private Boolean isNew = Boolean.FALSE;
 
