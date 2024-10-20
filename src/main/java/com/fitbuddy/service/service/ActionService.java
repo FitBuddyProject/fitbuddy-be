@@ -42,7 +42,9 @@ public class ActionService {
 
 
         this.startFriendStatus(actionDto);
-        this.doAthlete(actionDto.prepareAthlete().getAthlete(), action.getUuid());
+        if(Objects.nonNull(actionDto.getAthlete())) {
+            this.doAthlete(actionDto.prepareAthlete().getAthlete(), action.getUuid());
+        }
         return Boolean.TRUE;
     }
 
