@@ -17,6 +17,7 @@ public class Advisor {
     @ExceptionHandler(value = RuntimeException.class)
     @ResponseBody
     public ResponseEntity handleRuntimeException ( RuntimeException e ) {
+        e.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                              .body(e.getMessage());
     }
@@ -24,6 +25,7 @@ public class Advisor {
     @ExceptionHandler(value = {IncorrectClaimException.class, UnsupportedJwtException.class, JwtException.class})
     @ResponseBody
     public ResponseEntity handlerJwtException ( Exception e ) {
+        e.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                              .body(e.getMessage());
     }
@@ -31,6 +33,7 @@ public class Advisor {
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     @ResponseBody
     public ResponseEntity handlerMethodArgument (Exception e) {
+        e.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
 

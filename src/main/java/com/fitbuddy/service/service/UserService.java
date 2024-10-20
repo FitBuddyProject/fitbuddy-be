@@ -74,7 +74,6 @@ public class UserService {
     public User signIn(HttpServletResponse response, UserDto userDto) {
 
         Optional<User> find = repository.findUserByPhone(userDto.getPhone());
-        log.error("???? {}", find.get());
         User user = find.orElseThrow(() -> new IllegalArgumentException("계정을 확인해주세요."));
 
 //        if( !bcrypt.matches( userDto.getPassword(), user.getPassword() ) ) throw new IllegalArgumentException("아이디 혹은 비밀번호를 확인해주세요.");

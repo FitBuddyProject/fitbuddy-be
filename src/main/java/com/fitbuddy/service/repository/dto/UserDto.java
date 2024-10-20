@@ -110,7 +110,7 @@ public class UserDto implements JwtEncryptable {
 
     @Override
     public void decodeUUID() {
-        this.uuid.replaceAll("+", "-");
+        this.uuid.replaceAll("\\+", "-");
     }
     @Override
     public void encodeUUID() {

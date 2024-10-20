@@ -10,13 +10,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 @Slf4j
 public class ActionService {
@@ -44,7 +42,7 @@ public class ActionService {
 
 
         this.startFriendStatus(actionDto);
-        this.doAthlete(actionDto.getAthlete(), action.getUuid());
+        this.doAthlete(actionDto.prepareAthlete().getAthlete(), action.getUuid());
         return Boolean.TRUE;
     }
 

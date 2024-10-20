@@ -7,6 +7,7 @@ import com.fitbuddy.service.repository.entity.Action;
 import com.fitbuddy.service.repository.entity.Athlete;
 import com.fitbuddy.service.repository.entity.MyBuddy;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Sort;
@@ -16,19 +17,21 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class ActionTemplate {
     private final MongoTemplate mongoTemplate;
 
     public List<Athlete> calendar(ActionRequest request) {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
         Query query = Query.query(
                 Criteria.where("userUuid").is(request.getUserUuid())
-                .and("date").gte(request.getStartDate())
-                .and("date").lte(request.getEndDate())
+                .and("date").gte(request.getStartDate().format(formatter)).lte(request.getEndDate().format(formatter))
         );
 
         query.with(Sort.by(new Sort.Order(Sort.Direction.DESC, "date"))).limit(10);
@@ -44,7 +47,7 @@ public class ActionTemplate {
     public List<Action> histories(ActionRequest request) {
         Criteria criteria = Criteria.where("userUuid").is(request.getUserUuid())
                 .and("start").gte(request.getStartDate().atStartOfDay())
-                .and("start").lte(request.getEndDate().plusDays(1).atStartOfDay().minusNanos(1));
+                .and("end").lte(request.getEndDate().plusDays(1).atStartOfDay().minusNanos(1));
 
 
         if(Objects.nonNull(request.getLastKey())) criteria.and("uuid").gt(new ObjectId(request.getLastKey()));

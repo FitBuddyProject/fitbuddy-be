@@ -3,11 +3,11 @@ package com.fitbuddy.service.repository.dto;
 import com.fitbuddy.service.config.enumerations.Act;
 import com.fitbuddy.service.config.enumerations.ActionStatus;
 import com.fitbuddy.service.etc.uuid.Uuid;
-import com.fitbuddy.service.repository.entity.Athlete;
 import lombok.Data;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Data
 public class ActionDto {
@@ -29,6 +29,11 @@ public class ActionDto {
             isNew = Boolean.TRUE;
             this.actionStatus = ActionStatus.ON_GOING;
         }
+        return this;
+    }
+
+    public ActionDto prepareAthlete() {
+        if(Objects.nonNull(athlete))athlete.setDate(start.toLocalDate());
         return this;
     }
 }
