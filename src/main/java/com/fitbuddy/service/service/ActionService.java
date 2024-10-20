@@ -33,7 +33,7 @@ public class ActionService {
     }
 
 
-    public Boolean doAction(ActionDto actionDto) {
+    public String  doAction(ActionDto actionDto) {
 
         ActionDto beforeInsert = actionDto.beforeInsert();
         Action action = mapper.map(beforeInsert, Action.class);
@@ -45,7 +45,7 @@ public class ActionService {
         if(Objects.nonNull(actionDto.getAthlete())) {
             this.doAthlete(actionDto.prepareAthlete().getAthlete(), action.getUuid());
         }
-        return Boolean.TRUE;
+        return beforeInsert.getUuid();
     }
 
     private void  doAthlete(AthleteDto athleteDto, String uuid) {
