@@ -6,9 +6,9 @@ import lombok.Getter;
 
 @Getter
 public enum Buddy{
-    CHICKEN("치킨", "치킨"),
-    RABBIT("토끼", "토끼"),
-    DUCK("오리", "오리");
+    CHICKEN("삐약이", "삐약이"),
+    OTTER("수달이", "수달이"),
+    MONSTER("이상이", "이상이");
 
     private String name;
     private String description;
