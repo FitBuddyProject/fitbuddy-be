@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,6 +33,7 @@ public class UserService {
     private final ModelMapper mapper;
     private final RedisTemplate<String, String> redisTemplate;
     private final TokenProvider tokenProvider;
+    private final Environment environment;
 
 
     private String generateCode() {
@@ -47,7 +49,8 @@ public class UserService {
         String random = this.generateCode();
         ValueOperations<String, String> value = redisTemplate.opsForValue();
 
-        if (StringUtils.hasText(value.get(phone))) throw new IllegalStateException("이미 발송됐습니다.");
+        boolean isDev = environment.getProperty("spring.config.activate.profile", Boolean.class);
+        if (StringUtils.hasText(value.get(phone)) && !isDev) throw new IllegalStateException("이미 발송됐습니다.");
         value.set(phone, random, Duration.ofMinutes(5L));
 
         return random;
@@ -76,6 +79,7 @@ public class UserService {
         Optional<User> find = repository.findUserByPhone(userDto.getPhone());
         User user = find.orElseThrow(() -> new IllegalArgumentException("계정을 확인해주세요."));
 
+        log.error("USER{}", user.getBuddies());
 //        if( !bcrypt.matches( userDto.getPassword(), user.getPassword() ) ) throw new IllegalArgumentException("아이디 혹은 비밀번호를 확인해주세요.");
         UserDto dto = mapper.map(user, UserDto.class);
         String refresh = tokenProvider.encrypt(dto, Boolean.FALSE);

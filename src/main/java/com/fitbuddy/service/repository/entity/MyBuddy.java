@@ -48,7 +48,7 @@ public class MyBuddy  implements Persistable {
     private boolean isNew;
 
     @DBRef
-    private List<Action> actionHistories;
+    private Action nowAct;
 
     @Override
     public Object getId() {

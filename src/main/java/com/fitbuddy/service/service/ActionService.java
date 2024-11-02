@@ -33,17 +33,19 @@ public class ActionService {
     }
 
 
-    public Boolean doAction(ActionDto actionDto) {
+    public String  doAction(ActionDto actionDto) {
 
         ActionDto beforeInsert = actionDto.beforeInsert();
         Action action = mapper.map(beforeInsert, Action.class);
 
         template.saveAction(action);
+        if(Objects.nonNull(actionDto.getAthlete())) {
+            this.doAthlete(actionDto.prepareAthlete().getAthlete(), action.getUuid());
+        }
 
-
-        this.startFriendStatus(actionDto);
-        this.doAthlete(actionDto.prepareAthlete().getAthlete(), action.getUuid());
-        return Boolean.TRUE;
+        log.error("beforeInsert {}", beforeInsert);
+        this.startFriendStatus(action);
+        return beforeInsert.getUuid();
     }
 
     private void  doAthlete(AthleteDto athleteDto, String uuid) {
@@ -54,8 +56,8 @@ public class ActionService {
         }
     }
 
-    private void startFriendStatus(ActionDto actionDto) {
-        template.startFriendStatus( actionDto );
+    private void startFriendStatus(Action action) {
+         template.startFriendStatus( action );
     }
 
 
