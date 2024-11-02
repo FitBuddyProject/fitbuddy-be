@@ -44,4 +44,8 @@ public class BuddyService {
     public Boolean earnExp(MyBuddyDto myBuddy) {
         return template.earnExp(myBuddy);
     }
+
+    public MyBuddy buddy(String uuid) {
+        return repository.findTopByUuid(uuid);
+    }
 }

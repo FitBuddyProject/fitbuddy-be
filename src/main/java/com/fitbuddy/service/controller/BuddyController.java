@@ -22,6 +22,11 @@ public class BuddyController {
         return ResponseEntity.ok(service.myBuddies(userUuid));
     }
 
+    @GetMapping(value = "/one/{uuid}")
+    @Operation( summary ="버디" )
+    public ResponseEntity buddy(@PathVariable(name = "uuid") String uuid) {
+        return ResponseEntity.ok(service.buddy(uuid));
+    }
 
     @PostMapping(value = "/make-friends")
     @Operation( summary ="버디 추가" )
