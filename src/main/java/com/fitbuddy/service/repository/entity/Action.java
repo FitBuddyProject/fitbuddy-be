@@ -3,6 +3,7 @@ package com.fitbuddy.service.repository.entity;
 import com.fitbuddy.service.config.enumerations.Act;
 import com.fitbuddy.service.config.enumerations.ActionStatus;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 
 @Document(collection = "ActionHistory")
 @Getter
+@ToString
 public class Action implements Persistable {
 
     @Id

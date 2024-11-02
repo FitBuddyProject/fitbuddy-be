@@ -39,12 +39,12 @@ public class ActionService {
         Action action = mapper.map(beforeInsert, Action.class);
 
         template.saveAction(action);
-
-
-        this.startFriendStatus(actionDto);
         if(Objects.nonNull(actionDto.getAthlete())) {
             this.doAthlete(actionDto.prepareAthlete().getAthlete(), action.getUuid());
         }
+
+        log.error("beforeInsert {}", beforeInsert);
+        this.startFriendStatus(action);
         return beforeInsert.getUuid();
     }
 
@@ -56,8 +56,8 @@ public class ActionService {
         }
     }
 
-    private void startFriendStatus(ActionDto actionDto) {
-        template.startFriendStatus( actionDto );
+    private void startFriendStatus(Action action) {
+         template.startFriendStatus( action );
     }
 
 

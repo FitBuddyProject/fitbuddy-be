@@ -2,12 +2,15 @@ package com.fitbuddy.service.repository.action;
 
 import com.fitbuddy.service.config.enumerations.ActionStatus;
 import com.fitbuddy.service.repository.dto.ActionDto;
+import com.fitbuddy.service.repository.dto.AthleteDto;
 import com.fitbuddy.service.repository.dto.request.ActionRequest;
 import com.fitbuddy.service.repository.entity.Action;
 import com.fitbuddy.service.repository.entity.Athlete;
 import com.fitbuddy.service.repository.entity.MyBuddy;
+import com.mongodb.client.result.UpdateResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.BsonValue;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Sort;
@@ -65,21 +68,28 @@ public class ActionTemplate {
         mongoTemplate.upsert(query, update, Action.class);
     }
 
-    public void saveAthlete(Athlete athlete) {
+    public void  saveAthlete(Athlete athlete) {
         Query query = Query.query(Criteria.where("uuid").is(new ObjectId(athlete.getUuid())));
         Document document = new Document();
         mongoTemplate.getConverter().write(athlete, document);
         Update update = Update.fromDocument(document);
-        mongoTemplate.upsert(query, update, Athlete.class);
+        BsonValue upsertResult = mongoTemplate.upsert(query, update, Athlete.class).getUpsertedId();
+
+
+        log.error("UPSERTREUSLT {}", upsertResult);
+
     }
 
-    public void startFriendStatus(ActionDto actionDto) {
+    public void startFriendStatus(Action actionDto) {
+        log.error("ACTOPM? {}", actionDto);
         Query query = Query.query(Criteria.where("uuid").is(new ObjectId(actionDto.getMyBuddyUuid())));
         Update update = Update.update("action", actionDto.getAction())
                               .set("whenStart", actionDto.getStart())
-                              .set("whenEnd", actionDto.getEnd());
+                              .set("whenEnd", actionDto.getEnd())
+                              .set("nowAct", actionDto);
 
-        mongoTemplate.updateFirst(query, update, MyBuddy.class);
+        UpdateResult upsertResult = mongoTemplate.updateFirst(query, update, MyBuddy.class);
+
     }
 
     public void doneAction(String uuid) {
@@ -93,7 +103,8 @@ public class ActionTemplate {
         Query query = Query.query(Criteria.where("uuid").is(new ObjectId(actionDto.getMyBuddyUuid())));
         Update update = Update.update("action", null)
                               .set("whenStart", null)
-                              .set("whenEnd", null);
+                              .set("whenEnd", null)
+                              .set("nowAct", null);
 
         mongoTemplate.updateFirst(query, update, MyBuddy.class);
     }

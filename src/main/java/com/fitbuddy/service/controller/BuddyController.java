@@ -22,6 +22,7 @@ public class BuddyController {
         return ResponseEntity.ok(service.myBuddies(userUuid));
     }
 
+
     @PostMapping(value = "/make-friends")
     @Operation( summary ="버디 추가" )
     public ResponseEntity makeFriend( @Validated(value = MakeFriends.class) @RequestBody MyBuddyDto myBuddy) {

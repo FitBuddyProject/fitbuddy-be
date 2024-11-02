@@ -76,6 +76,7 @@ public class UserService {
         Optional<User> find = repository.findUserByPhone(userDto.getPhone());
         User user = find.orElseThrow(() -> new IllegalArgumentException("계정을 확인해주세요."));
 
+        log.error("USER{}", user.getBuddies());
 //        if( !bcrypt.matches( userDto.getPassword(), user.getPassword() ) ) throw new IllegalArgumentException("아이디 혹은 비밀번호를 확인해주세요.");
         UserDto dto = mapper.map(user, UserDto.class);
         String refresh = tokenProvider.encrypt(dto, Boolean.FALSE);

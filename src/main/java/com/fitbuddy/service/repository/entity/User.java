@@ -72,7 +72,7 @@ public class User implements Persistable {
     @Field(name = "lastSignInDate", targetType = FieldType.DATE_TIME)
     private LocalDateTime lastSignInDate;
 
-    @DBRef(db = "MyBuddy")
+    @DBRef
     private List<MyBuddy> buddies;
 
     @Transient
