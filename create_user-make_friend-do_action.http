@@ -1,0 +1,102 @@
+###
+POST http://127.0.0.1:8080/v1/user/sign/up
+Content-Type: application/json
+
+{
+  "phone":"01012341234",
+  "nickname":"test"
+}
+
+<> 2024-11-02T182432.200.json
+<> 2024-11-02T180822.200.json
+
+###
+PATCH http://localhost:8080/v1/user/sign/in
+Content-Type: application/json
+
+{
+  "phone": "01012341234"
+}
+
+<> 2024-11-02T184752.200.json
+<> 2024-11-02T184545.200.json
+<> 2024-11-02T184436.200.json
+<> 2024-11-02T184421.200.json
+<> 2024-11-02T184420.200.json
+<> 2024-11-02T184327.200.json
+<> 2024-11-02T183540.200.json
+<> 2024-11-02T183445.200.json
+<> 2024-11-02T183252.200.json
+<> 2024-11-02T183143.200.json
+<> 2024-11-02T182847.200.json
+<> 2024-11-02T182522.200.json
+<> 2024-11-02T182457.200.json
+<> 2024-11-02T182403.200.json
+<> 2024-11-02T182356.200.json
+<> 2024-11-02T182232.200.json
+<> 2024-11-02T182202.200.json
+<> 2024-11-02T181821.200.json
+<> 2024-11-02T181733.200.json
+<> 2024-11-02T181453.200.json
+<> 2024-11-02T181404.200.json
+<> 2024-11-02T181225.200.json
+<> 2024-11-02T181113.200.json
+
+###
+
+POST http://127.0.0.1:8080/v1/buddy/make-friends
+Content-Type: application/json
+Authorization: Bearer eyJ0b2tlblR5cGUiOiJBQ0NFU1MiLCJhbGciOiJIUzI1NiJ9.eyJCT0RZIjoie1wiam9pbkRhdGVcIjpcIjIwMjQtMTEtMDJUMTg6MjQ6MzIuNDYyOTI0XCIsXCJsYXN0TW9kaWZpZWREYXRlXCI6XCIyMDI0LTExLTAyVDE4OjI0OjMyLjQ2MjkyNFwiLFwiaWRcIjpcIjAxMDEyMzQxMjM0XCIsXCJ1dWlkXCI6XCJiNDc2NDc2MzQxMDQzOGVkYjdlM2YwMmJcIn0iLCJpc3MiOiJmaXRCdWRkeSIsImp0aSI6ImI0NzY0NzYzNDEwNDM4ZWRiN2UzZjAyYiIsImV4cCI6MTczMTE0NDI3MiwibmJmIjoxNzMwNTM5NDcyLCJpYXQiOjE3MzA1Mzk0NzJ9.Tuxf0h4RqWyYReBP4_6aKwdOYOq14wzn62OOwfE6hdc
+
+
+{
+  "userUuid": "b4764763410438edb7e3f02b",
+  "buddy": "CHICKEN",
+  "name": "닭",
+  "exp": 1
+}
+
+<> 2024-11-02T182454.200.json
+<> 2024-11-02T182453.200.json
+<> 2024-11-02T182400.200.json
+<> 2024-11-02T182359.200.json
+<> 2024-11-02T182229.200.json
+<> 2024-11-02T182228.200.json
+<> 2024-11-02T181222.200.json
+<> 2024-11-02T181053.200.json
+<> 2024-11-02T181012.500.json
+
+###
+
+POST http://127.0.0.1:8080/v1/action/start
+Content-Type: application/json
+Authorization: Bearer eyJ0b2tlblR5cGUiOiJBQ0NFU1MiLCJhbGciOiJIUzI1NiJ9.eyJCT0RZIjoie1wiam9pbkRhdGVcIjpcIjIwMjQtMTEtMDJUMTg6MjQ6MzIuNDYyOTI0XCIsXCJsYXN0TW9kaWZpZWREYXRlXCI6XCIyMDI0LTExLTAyVDE4OjI0OjMyLjQ2MjkyNFwiLFwiaWRcIjpcIjAxMDEyMzQxMjM0XCIsXCJ1dWlkXCI6XCJiNDc2NDc2MzQxMDQzOGVkYjdlM2YwMmJcIn0iLCJpc3MiOiJmaXRCdWRkeSIsImp0aSI6ImI0NzY0NzYzNDEwNDM4ZWRiN2UzZjAyYiIsImV4cCI6MTczMTE0NDI3MiwibmJmIjoxNzMwNTM5NDcyLCJpYXQiOjE3MzA1Mzk0NzJ9.Tuxf0h4RqWyYReBP4_6aKwdOYOq14wzn62OOwfE6hdc
+
+{
+  "userUuid": "b4764763410438edb7e3f02b",
+  "myBuddyUuid": "5bedced06403d1d6b85898db",
+  "action": "EXERCISE",
+  "actionStatus": "ON_GOING",
+  "start": "2024-11-02T18:24:32.382",
+  "athlete": {
+    "userUuid": "b4764763410438edb7e3f02b",
+    "exerciseType": "러닝",
+    "intensity": "MEDIUM",
+    "duration": "1",
+    "diary": "테스트"
+  }
+}
+
+<> 2024-11-02T184743.200.txt
+<> 2024-11-02T184718.200.txt
+<> 2024-11-02T184541.200.txt
+<> 2024-11-02T184417.500.txt
+<> 2024-11-02T184323.500.txt
+<> 2024-11-02T183704.200.txt
+<> 2024-11-02T183537.200.txt
+<> 2024-11-02T183441.500.txt
+<> 2024-11-02T183247.200.txt
+<> 2024-11-02T183140.200.txt
+<> 2024-11-02T182842.200.txt
+###
+
